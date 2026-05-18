@@ -118,3 +118,55 @@ html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb:hover {
 .animate-marquee {
   animation: marquee 15s linear infinite;
 }
+
+/* Entrance Animations */
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slide-up-fade {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-fade {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+.animate-slide-up-fade {
+  animation: slide-up-fade 600ms var(--ease-out-quart) forwards;
+  opacity: 0;
+}
+
+.animate-scale-fade {
+  animation: scale-fade 800ms var(--ease-out-expo) forwards;
+  opacity: 0;
+}
+
+.animate-slide-down {
+  animation: slide-down 600ms var(--ease-out-expo) forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
