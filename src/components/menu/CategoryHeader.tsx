@@ -7,13 +7,13 @@ interface CategoryHeaderProps {
 
 export function CategoryHeader({ title, baseDescription }: CategoryHeaderProps) {
   return (
-    <div className="w-full px-4 py-6">
-      <h1 className="font-anton text-headline-lg text-deep-charcoal uppercase mb-2">
+    <div className="w-full px-5 py-8">
+      <h1 className="font-anton text-[40px] leading-[1.1] text-deep-charcoal uppercase mb-3 tracking-wide">
         {title}
       </h1>
       {baseDescription && (
-        <p className="font-libre-franklin text-body-lg text-on-surface-variant">
-          <span className="font-bold">Base: </span>
+        <p className="font-libre-franklin text-[18px] leading-relaxed text-on-surface-variant border-l-[4px] border-vibrant-yellow pl-4">
+          <span className="font-bold text-deep-charcoal">Base: </span>
           {baseDescription}
         </p>
       )}

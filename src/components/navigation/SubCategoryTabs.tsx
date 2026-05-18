@@ -81,42 +81,52 @@ export function SubCategoryTabs({
   if (tabs.length === 0) return null;
 
   return (
-    <div>
-      {/* Tab Bar */}
-      <div className="w-full bg-surface border-b-2 border-deep-charcoal">
-        <div className="flex px-4 gap-0">
-          {tabs.map((tab) => (
-            <button
-              key={tab._id}
-              onClick={() => setActiveTab(tab.slug)}
-              className={`
-                flex-1 py-3 px-2 font-libre-franklin font-bold text-sm uppercase tracking-wide text-center
-                border-b-3 transition-all duration-200 cursor-pointer
-                ${
-                  activeTab === tab.slug
-                    ? 'border-vibrant-yellow text-deep-charcoal bg-supplement-bg'
-                    : 'border-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-supplement-bg/50'
-                }
-              `}
-            >
-              {tab.label}
-            </button>
-          ))}
+    <div className="w-full mt-2">
+      {/* Folder-style Tab Bar */}
+      <div className="w-full px-5 mb-6">
+        <div className="flex gap-2 relative">
+          {/* The bottom continuous line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-deep-charcoal z-0" />
+          
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.slug;
+            return (
+              <button
+                key={tab._id}
+                onClick={() => setActiveTab(tab.slug)}
+                className={`
+                  flex-1 py-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none
+                  transition-all duration-200 cursor-pointer rounded-t-[4px] border-[3px] border-b-0 relative z-10
+                  ${
+                    isActive
+                      ? 'border-deep-charcoal bg-vibrant-yellow text-deep-charcoal'
+                      : 'border-transparent bg-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-surface-variant'
+                  }
+                `}
+              >
+                {tab.label}
+                {/* Visual trick to overwrite the bottom border line when active */}
+                {isActive && (
+                  <div className="absolute -bottom-[3px] left-0 right-0 h-[3px] bg-vibrant-yellow" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {/* Base Description for active tab */}
       {activeTabData?.baseDescription && (
-        <div className="w-full px-4 pt-4 pb-2">
-          <p className="font-libre-franklin text-body-lg text-on-surface-variant">
-            <span className="font-bold">Base: </span>
+        <div className="w-full px-5 pt-2 pb-4">
+          <p className="font-libre-franklin text-[18px] leading-relaxed text-on-surface-variant border-l-[4px] border-vibrant-yellow pl-4">
+            <span className="font-bold text-deep-charcoal">Base: </span>
             {activeTabData.baseDescription}
           </p>
         </div>
       )}
 
       {/* Items */}
-      <div className="pt-4">
+      <div className="pt-2">
         <ItemList items={activeItems} categorySlug={activeTab} />
       </div>
 

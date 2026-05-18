@@ -15,33 +15,33 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
   return (
     <Link 
       href={`/menu/${categorySlug}/${slug}`}
-      className="flex w-full bg-white border-2 border-deep-charcoal rounded-md overflow-hidden active:scale-[0.97] transition-transform"
+      className="group flex w-full bg-white border-[3px] border-deep-charcoal rounded-[4px] overflow-hidden hover:border-deep-charcoal active:scale-[0.98] transition-all duration-200"
     >
-      {/* Image Container (100x100) */}
-      <div className="w-[100px] h-[100px] border-r-2 border-deep-charcoal relative flex-shrink-0 bg-surface-variant flex items-center justify-center">
+      {/* Image Container (110x110) */}
+      <div className="w-[110px] h-[110px] border-r-[3px] border-deep-charcoal relative flex-shrink-0 bg-vibrant-yellow flex items-center justify-center transition-colors duration-200">
         {imageUrl ? (
           <Image src={imageUrl} alt={name} fill className="object-cover" />
         ) : (
-          <span className="font-anton text-deep-charcoal opacity-20 text-4xl">{name.charAt(0)}</span>
+          <span className="font-anton text-deep-charcoal text-[48px] uppercase leading-none mt-2">{name.charAt(0)}</span>
         )}
       </div>
 
       {/* Content Container */}
-      <div className="flex-1 p-3 flex flex-col justify-center">
-        <div className="flex justify-between items-start gap-2">
+      <div className="flex-1 p-4 flex flex-col justify-center">
+        <div className="flex justify-between items-start gap-3">
           <div className="flex-1">
-            <h3 className="font-anton text-headline-lg-mobile text-deep-charcoal leading-tight uppercase">
+            <h3 className="font-anton text-[22px] text-deep-charcoal leading-[1.1] uppercase tracking-wide group-hover:text-primary transition-colors">
               {name}
             </h3>
             {description && (
-              <p className="font-libre-franklin text-sm text-on-surface-variant mt-1 line-clamp-2 leading-snug">
+              <p className="font-libre-franklin text-[15px] text-on-surface-variant mt-1.5 line-clamp-2 leading-tight">
                 {description}
               </p>
             )}
           </div>
           
-          <div className="flex-shrink-0 flex items-center h-full">
-            <span className="font-libre-franklin font-bold text-[22px] text-price-green whitespace-nowrap">
+          <div className="flex-shrink-0 flex items-center h-full pt-0.5">
+            <span className="font-libre-franklin font-bold text-[20px] tracking-tight text-price-green whitespace-nowrap bg-[#E8F3ED] px-2.5 py-1 rounded-[4px] border-[2px] border-[#B8D8C7]">
               {price.toString().replace('.', ',')} DT
             </span>
           </div>
