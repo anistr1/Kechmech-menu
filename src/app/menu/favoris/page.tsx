@@ -6,19 +6,25 @@ import { CategoryHeader } from '@/components/menu/CategoryHeader';
 import { ItemCard } from '@/components/menu/ItemCard';
 import { useFavorites } from '@/components/FavoritesProvider';
 import { client } from '@/sanity/lib/client';
-import { GET_CATEGORIES_QUERY } from '@/lib/sanity/queries';
+import { GET_CATEGORIES_QUERY, GET_SITE_SETTINGS_QUERY } from '@/lib/sanity/queries';
+import { NoticeBar } from '@/components/navigation/NoticeBar';
 
 export default function FavorisPage() {
   const { favorites } = useFavorites();
   const [categories, setCategories] = useState<any[]>([]);
+  const [siteSettings, setSiteSettings] = useState<any>(null);
   const [favoriteItems, setFavoriteItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const fetchedCategories = await client.fetch(GET_CATEGORIES_QUERY);
+        const [fetchedCategories, fetchedSettings] = await Promise.all([
+          client.fetch(GET_CATEGORIES_QUERY),
+          client.fetch(GET_SITE_SETTINGS_QUERY),
+        ]);
         setCategories(fetchedCategories);
+        setSiteSettings(fetchedSettings);
 
         if (favorites.length > 0) {
           // Fetch favorite items using Sanity groq query
@@ -54,6 +60,12 @@ export default function FavorisPage() {
 
   return (
     <main className="min-h-screen bg-surface pb-12">
+      <NoticeBar 
+        marqueeText={siteSettings?.marqueeText}
+        instagramUrl={siteSettings?.instagramUrl}
+        facebookUrl={siteSettings?.facebookUrl}
+        tiktokUrl={siteSettings?.tiktokUrl}
+      />
       <CategoryNav categories={categories} activeCategorySlug="favoris" />
 
       <CategoryHeader

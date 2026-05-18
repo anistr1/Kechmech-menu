@@ -72,7 +72,11 @@ export const GET_SITE_SETTINGS_QUERY = defineQuery(`
     restaurantName,
     "logoUrl": logo.asset->url,
     splashTagline,
-    ctaText
+    ctaText,
+    marqueeText,
+    instagramUrl,
+    facebookUrl,
+    tiktokUrl
   }
 `)
 

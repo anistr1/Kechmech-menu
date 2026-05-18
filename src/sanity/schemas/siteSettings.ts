@@ -19,5 +19,9 @@ export default defineType({
 
     defineField({ name: 'splashTagline', type: 'string', title: 'Slogan (Splash)' }),
     defineField({ name: 'ctaText', type: 'string', title: 'Texte bouton CTA' }),
+    defineField({ name: 'marqueeText', type: 'string', title: 'Texte promotionnel (Marquee)', description: 'Texte défilant affiché en haut du menu.' }),
+    defineField({ name: 'instagramUrl', type: 'url', title: 'Lien Instagram' }),
+    defineField({ name: 'facebookUrl', type: 'url', title: 'Lien Facebook' }),
+    defineField({ name: 'tiktokUrl', type: 'url', title: 'Lien TikTok' }),
   ]
 })

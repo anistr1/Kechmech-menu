@@ -19,6 +19,9 @@ export default async function MenuSplashPage() {
       tagline={settings?.splashTagline}
       ctaText={settings?.ctaText}
       firstCategorySlug={firstCategorySlug}
+      instagramUrl={settings?.instagramUrl}
+      facebookUrl={settings?.facebookUrl}
+      tiktokUrl={settings?.tiktokUrl}
     />
   );
 }

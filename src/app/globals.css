@@ -68,34 +68,39 @@ body {
 }
 
 /* Global visible scrollbars (vertical and horizontal) to make scrolling obvious and on-brand */
-html {
+html:not(:has(#sanity-studio-root)) {
   scrollbar-width: auto;
   scrollbar-color: var(--color-vibrant-yellow) var(--color-surface);
 }
 
-::-webkit-scrollbar {
+html:not(:has(#sanity-studio-root))::-webkit-scrollbar,
+html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar {
   width: 14px;
   height: 14px;
 }
 
-::-webkit-scrollbar-track {
+html:not(:has(#sanity-studio-root))::-webkit-scrollbar-track,
+html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-track {
   background: var(--color-surface);
   border-left: 3px solid var(--color-deep-charcoal);
 }
 
 /* Horizontal track specific style */
-::-webkit-scrollbar-track:horizontal {
+html:not(:has(#sanity-studio-root))::-webkit-scrollbar-track:horizontal,
+html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-track:horizontal {
   border-left: none;
   border-top: 3px solid var(--color-deep-charcoal);
 }
 
-::-webkit-scrollbar-thumb {
+html:not(:has(#sanity-studio-root))::-webkit-scrollbar-thumb,
+html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb {
   background-color: var(--color-vibrant-yellow);
   border: 3px solid var(--color-deep-charcoal);
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+html:not(:has(#sanity-studio-root))::-webkit-scrollbar-thumb:hover,
+html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary);
 }
 
@@ -103,4 +108,13 @@ html {
 *:focus-visible {
   outline: 3px solid var(--color-vibrant-yellow);
   outline-offset: 2px;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 15s linear infinite;
 }
