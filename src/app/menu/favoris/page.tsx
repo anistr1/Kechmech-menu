@@ -31,7 +31,7 @@ export default function FavorisPage() {
             }`,
             { slugs }
           );
-          
+
           setFavoriteItems(items);
         } else {
           setFavoriteItems([]);

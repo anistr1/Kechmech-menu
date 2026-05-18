@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@700&family=Libre+Franklin:wght@400;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -20,6 +20,7 @@
 
   --font-anton: "Anton", sans-serif;
   --font-libre-franklin: "Libre Franklin", sans-serif;
+  --font-handwritten: "Caveat", cursive;
 
   --radius-none: 0;
   --radius-sm: 0.125rem;

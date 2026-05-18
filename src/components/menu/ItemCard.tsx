@@ -31,7 +31,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
   };
 
   return (
-    <Link 
+    <Link
       href={`/menu/${categorySlug}/${slug}`}
       onClick={handleCardClick}
       className={`group relative flex flex-col w-full bg-white border-[3px] border-deep-charcoal rounded-[4px] hover:border-deep-charcoal active:scale-[0.98] transition-all duration-200 ${isNavigating ? 'pointer-events-none' : ''}`}
@@ -72,7 +72,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
             </p>
           )}
         </div>
-        
+
         <div className="flex items-center justify-between gap-1 pt-1 mt-auto relative z-30">
           <PriceTag price={price} size="sm" />
           <FavoriteButton
