@@ -29,7 +29,12 @@ export const GET_CATEGORY_BY_SLUG_QUERY = defineQuery(`
       _id,
       name,
       price
-    }
+    },
+    compositionTitle,
+    compositionSize,
+    compositionSubtitle,
+    compositionCombos,
+    compositionChoices
   }
 `)
 

@@ -30,6 +30,11 @@ interface SubCategoryTabsProps {
     tabLabel?: string;
     baseDescription?: string;
     supplements?: { _id: string; name: string; price: number }[];
+    compositionTitle?: string;
+    compositionSize?: string;
+    compositionSubtitle?: string;
+    compositionCombos?: { count: number; price: number }[];
+    compositionChoices?: string[];
   };
   /** The child sub-categories */
   subCategories: SubCategory[];
@@ -131,7 +136,13 @@ export function SubCategoryTabs({
 
       {/* Familial Visual (Pizza only) */}
       {activeTab === 'pizza' && (
-        <FamilialVisual />
+        <FamilialVisual
+          title={parentCategory.compositionTitle}
+          size={parentCategory.compositionSize}
+          subtitle={parentCategory.compositionSubtitle}
+          combos={parentCategory.compositionCombos}
+          choices={parentCategory.compositionChoices}
+        />
       )}
 
       {/* Supplements for active tab */}

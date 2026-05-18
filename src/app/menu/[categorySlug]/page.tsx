@@ -81,6 +81,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             tabLabel: currentCategory.tabLabel,
             baseDescription: currentCategory.baseDescription,
             supplements: currentCategory.supplements,
+            compositionTitle: currentCategory.compositionTitle,
+            compositionSize: currentCategory.compositionSize,
+            compositionSubtitle: currentCategory.compositionSubtitle,
+            compositionCombos: currentCategory.compositionCombos,
+            compositionChoices: currentCategory.compositionChoices,
           }}
           subCategories={childCategories}
           itemsBySubCategory={itemsBySubCategory}
