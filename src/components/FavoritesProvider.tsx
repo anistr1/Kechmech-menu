@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 interface FavoriteItem {
   slug: string;
@@ -14,27 +14,50 @@ interface FavoritesContextType {
   isFavorite: (slug: string) => boolean;
 }
 
+const STORAGE_KEY = 'kechmech_favorites';
+
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const isLoaded = useRef(false);
 
-  // Load from sessionStorage on mount
+  // Load from localStorage on mount (localStorage persists across tabs & visits)
   useEffect(() => {
     try {
-      const stored = sessionStorage.getItem('kechmech_favorites');
+      const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         setFavorites(JSON.parse(stored));
+      }
+      // Also migrate any existing sessionStorage data from before this fix
+      const sessionStored = sessionStorage.getItem('kechmech_favorites');
+      if (sessionStored) {
+        const sessionFavs: FavoriteItem[] = JSON.parse(sessionStored);
+        if (sessionFavs.length > 0) {
+          setFavorites((prev) => {
+            const merged = [...prev];
+            for (const item of sessionFavs) {
+              if (!merged.some((f) => f.slug === item.slug)) {
+                merged.push(item);
+              }
+            }
+            return merged;
+          });
+        }
+        // Clean up old sessionStorage key
+        sessionStorage.removeItem('kechmech_favorites');
       }
     } catch (e) {
       console.error('Failed to load favorites', e);
     }
+    isLoaded.current = true;
   }, []);
 
-  // Save to sessionStorage when favorites change
+  // Save to localStorage when favorites change — but only after initial load
   useEffect(() => {
+    if (!isLoaded.current) return;
     try {
-      sessionStorage.setItem('kechmech_favorites', JSON.stringify(favorites));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
     } catch (e) {
       console.error('Failed to save favorites', e);
     }

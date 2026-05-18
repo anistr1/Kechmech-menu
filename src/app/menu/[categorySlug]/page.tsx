@@ -12,7 +12,7 @@ import { SupplementSection } from '@/components/menu/SupplementSection';
 import { FamilialVisual } from '@/components/menu/FamilialVisual';
 import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ categorySlug: string }> }): Promise<Metadata> {
   const { categorySlug } = await params;

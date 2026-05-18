@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useId, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 interface SubCategory {
   _id: string;
@@ -51,7 +51,9 @@ export function SubCategoryTabs({
   subCategories,
   itemsBySubCategory,
 }: SubCategoryTabsProps) {
-  const instanceId = useId();
+  // Avoid useId() — it generates IDs with colons (e.g. `:r1:`) that older
+  // iOS Safari (iPhone 7) can't handle in ARIA attributes
+  const instanceId = useMemo(() => `sct-${Math.random().toString(36).slice(2, 8)}`, []);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Build tab list: parent first (if it has its own items), then children
@@ -146,6 +148,7 @@ export function SubCategoryTabs({
                 aria-controls={panelId(tab.slug)}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTab(tab.slug)}
+                onTouchEnd={(e) => { e.preventDefault(); setActiveTab(tab.slug); }}
                 onKeyDown={(e) => handleTabKeyDown(e, index)}
                 className={`
                   flex-1 pt-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none

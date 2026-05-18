@@ -2,7 +2,7 @@ import { SplashScreen } from '@/components/splash/SplashScreen';
 import { client } from '@/sanity/lib/client';
 import { GET_SITE_SETTINGS_QUERY, GET_CATEGORIES_QUERY } from '@/lib/sanity/queries';
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 export default async function MenuSplashPage() {
   const [settings, categories] = await Promise.all([

@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface BackButtonProps {
@@ -9,10 +9,28 @@ interface BackButtonProps {
 
 export function BackButton({ label = 'RETOUR' }: BackButtonProps) {
   const router = useRouter();
+  const handledRef = useRef(false);
+
+  const handleBack = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Guard against double-fire from touchEnd → synthetic click
+    if (handledRef.current) return;
+    handledRef.current = true;
+    setTimeout(() => { handledRef.current = false; }, 400);
+
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      router.back();
+    } else {
+      router.push('/menu');
+    }
+  }, [router]);
 
   return (
     <button
-      onClick={() => router.back()}
+      onClick={handleBack}
+      onTouchEnd={handleBack}
       className="flex items-center gap-2 bg-white text-deep-charcoal border-2 border-deep-charcoal rounded-full px-5 py-2 hover:bg-deep-charcoal hover:text-white transition-colors active:scale-95 min-h-[44px]"
       aria-label="Retour à la page précédente"
     >
