@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Libre+Franklin:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #f9f9f9;
+  --color-deep-charcoal: #1A1A1A;
+  --color-vibrant-yellow: #FFCE00;
+  --color-supplement-bg: #FFF9DB;
+  --color-price-green: #2D6A4F;
+  --color-primary: #735c00;
+  --color-on-primary: #ffffff;
+  --color-outline-variant: #d1c5ab;
+  --color-on-surface-variant: #4e4632;
+  --color-tertiary: #bb152c;
+
+  --font-anton: "Anton", sans-serif;
+  --font-libre-franklin: "Libre Franklin", sans-serif;
+
+  --radius-none: 0;
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.25rem;
+  --radius-full: 9999px;
+
+  --border-width-default: 2px;
+  --border-width-heavy: 3px;
+
+  --spacing-unit: 4px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-gutter: 16px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 64px;
+}
+
+body {
+  font-family: var(--font-libre-franklin);
+  background-color: var(--color-surface);
+  color: var(--color-deep-charcoal);
+  margin: 0;
+  padding: 0;
+}
