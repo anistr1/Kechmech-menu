@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { client } from '@/sanity/lib/client';
 import { GET_MENU_ITEM_BY_SLUG_QUERY } from '@/lib/sanity/queries';
@@ -8,6 +9,25 @@ import { Badge } from '@/components/ui/Badge';
 import { SupplementSection } from '@/components/menu/SupplementSection';
 
 export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: Promise<{ itemSlug: string }> }): Promise<Metadata> {
+  const { itemSlug } = await params;
+  const item = await client.fetch(GET_MENU_ITEM_BY_SLUG_QUERY, { slug: itemSlug });
+
+  if (!item) {
+    return { title: 'Article introuvable' };
+  }
+
+  return {
+    title: item.name,
+    description: item.description
+      ? `${item.name} — ${item.description}`
+      : `${item.name} chez Kechmech. ${item.price} DT.`,
+    openGraph: item.imageUrl
+      ? { images: [{ url: item.imageUrl, width: 800, height: 600, alt: item.name }] }
+      : undefined,
+  };
+}
 
 export default async function ItemDetailPage({ params }: { params: Promise<{ itemSlug: string }> }) {
   const { itemSlug } = await params;
@@ -29,7 +49,14 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ ite
       {/* Hero Image (Square) */}
       <div className="w-full aspect-square relative border-b-2 border-deep-charcoal bg-surface-variant -mt-[76px]">
         {item.imageUrl ? (
-          <Image src={item.imageUrl} alt={item.name} fill className="object-cover" priority />
+          <Image
+            src={item.imageUrl}
+            alt={item.name}
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover"
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
             <span className="font-anton text-deep-charcoal opacity-20 text-8xl">
@@ -43,7 +70,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ ite
       <div className="px-4 py-6 flex flex-col gap-4">
         <div className="flex justify-between items-start">
           <div className="flex-1 pr-4">
-            <h1 className="font-anton text-display-lg-mobile text-deep-charcoal uppercase leading-none mb-2">
+            <h1 className="font-anton text-[28px] text-deep-charcoal uppercase leading-none mb-2">
               {item.name}
             </h1>
             <div className="flex gap-2">
@@ -57,7 +84,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ ite
         </div>
 
         {item.description && (
-          <p className="font-libre-franklin text-body-lg text-on-surface-variant mt-2">
+          <p className="font-libre-franklin text-[18px] leading-relaxed text-on-surface-variant mt-2">
             {item.description}
           </p>
         )}

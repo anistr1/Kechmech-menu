@@ -20,7 +20,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
       {/* Image Container (110x110) */}
       <div className="w-[110px] h-[110px] border-r-[3px] border-deep-charcoal relative flex-shrink-0 bg-vibrant-yellow flex items-center justify-center transition-colors duration-200">
         {imageUrl ? (
-          <Image src={imageUrl} alt={name} fill className="object-cover" />
+          <Image src={imageUrl} alt={name} fill sizes="110px" className="object-cover" />
         ) : (
           <span className="font-anton text-deep-charcoal text-[48px] uppercase leading-none mt-2">{name.charAt(0)}</span>
         )}

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { client } from '@/sanity/lib/client';
 import {
   GET_CATEGORIES_QUERY,
@@ -14,6 +15,22 @@ import { FamilialVisual } from '@/components/menu/FamilialVisual';
 import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
 
 export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: Promise<{ categorySlug: string }> }): Promise<Metadata> {
+  const { categorySlug } = await params;
+  const category = await client.fetch(GET_CATEGORY_BY_SLUG_QUERY, { slug: categorySlug });
+
+  if (!category) {
+    return { title: 'Catégorie introuvable' };
+  }
+
+  return {
+    title: category.title,
+    description: category.baseDescription
+      ? `${category.title} — ${category.baseDescription}`
+      : `Découvrez nos ${category.title.toLowerCase()} chez Kechmech.`,
+  };
+}
 
 export default async function CategoryPage({ params }: { params: Promise<{ categorySlug: string }> }) {
   const { categorySlug } = await params;

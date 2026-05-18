@@ -22,7 +22,7 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
           ${isActive ? 'bg-vibrant-yellow' : 'bg-white hover:bg-surface-variant'}`}
       >
         {imageUrl ? (
-          <Image src={imageUrl} alt={title} fill className="object-cover" />
+          <Image src={imageUrl} alt={title} fill sizes="76px" className="object-cover" />
         ) : icon ? (
           <Icon name={icon} className={`w-9 h-9 ${isActive ? 'text-deep-charcoal' : 'text-deep-charcoal'}`} />
         ) : (

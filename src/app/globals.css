@@ -12,6 +12,7 @@
   --color-outline-variant: #d1c5ab;
   --color-on-surface-variant: #4e4632;
   --color-tertiary: #bb152c;
+  --color-surface-variant: #e2e2e2;
 
   --font-anton: "Anton", sans-serif;
   --font-libre-franklin: "Libre Franklin", sans-serif;
@@ -36,10 +37,38 @@
   --spacing-margin-desktop: 64px;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: var(--font-libre-franklin);
   background-color: var(--color-surface);
   color: var(--color-deep-charcoal);
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection styling — brand colors */
+::selection {
+  background-color: var(--color-vibrant-yellow);
+  color: var(--color-deep-charcoal);
+}
+
+/* Hide scrollbar for horizontal nav — works across browsers */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Focus-visible ring for keyboard navigation accessibility */
+*:focus-visible {
+  outline: 3px solid var(--color-vibrant-yellow);
+  outline-offset: 2px;
 }
