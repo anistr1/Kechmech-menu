@@ -43,8 +43,16 @@ export function SplashScreen({
     }, 450);
   };
 
-  // Split tagline for staggered letter animation
-  const taglineLetters = tagline.split('');
+  // Split tagline for staggered letter animation, grouping by words
+  let charIndex = 0;
+  const taglineWords = tagline.split(' ').map(word => {
+    const letters = word.split('').map(char => ({
+      char,
+      index: charIndex++
+    }));
+    charIndex++; // account for space
+    return letters;
+  });
 
   // Marquee text array to repeat
   const marqueeItems = Array(12).fill(`${restaurantName} • FRESH & TASTY • `);
@@ -147,27 +155,31 @@ export function SplashScreen({
         </div>
 
         {/* Tagline & Brush Line Wrapper */}
-        <div className={`relative mb-10 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExiting ? 'translate-y-8 opacity-0 scale-95 blur-[2px]' : ''}`}>
+        <div className={`relative mb-10 w-full flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExiting ? 'translate-y-8 opacity-0 scale-95 blur-[2px]' : ''}`}>
           {/* Tagline - Staggered Reveal */}
-          <h2 className="relative z-10 font-handwritten text-[50px] font-bold leading-[1] text-deep-charcoal text-center flex justify-center flex-nowrap whitespace-nowrap gap-x-[1px]">
-            {taglineLetters.map((letter, i) => (
-              <span
-                key={i}
-                className="inline-block animate-slide-up-fade"
-                style={{ 
-                  animationDelay: `${200 + (i * 35)}ms`,
-                  transformOrigin: 'bottom center',
-                  transform: `rotate(${i % 2 === 0 ? '-1deg' : '1deg'})`
-                }}
-              >
-                {letter === ' ' ? '\u00A0' : letter}
+          <h2 className="relative z-10 font-handwritten text-[34px] sm:text-[42px] md:text-[50px] font-bold leading-[1.1] text-deep-charcoal text-center flex flex-wrap justify-center gap-x-3 md:gap-x-4 gap-y-1 md:gap-y-2">
+            {taglineWords.map((word, wIdx) => (
+              <span key={wIdx} className="flex flex-nowrap">
+                {word.map((letter, lIdx) => (
+                  <span
+                    key={lIdx}
+                    className="inline-block animate-slide-up-fade"
+                    style={{ 
+                      animationDelay: `${200 + (letter.index * 35)}ms`,
+                      transformOrigin: 'bottom center',
+                      transform: `rotate(${letter.index % 2 === 0 ? '-1deg' : '1deg'})`
+                    }}
+                  >
+                    {letter.char}
+                  </span>
+                ))}
               </span>
             ))}
           </h2>
           
           {/* SVG Hand Brush Line */}
           <svg 
-            className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-[110%] h-[14px] text-vibrant-yellow -z-10 animate-draw-line" 
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-[110%] max-w-[280px] sm:max-w-[340px] md:max-w-[400px] h-[12px] sm:h-[14px] text-vibrant-yellow -z-10 animate-draw-line" 
             viewBox="0 0 200 20" 
             preserveAspectRatio="none" 
             fill="none" 
