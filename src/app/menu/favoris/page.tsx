@@ -73,9 +73,9 @@ export default function FavorisPage() {
         baseDescription="Retrouvez ici tous les articles que vous avez aimés."
       />
 
-      <div className="px-5 mt-6 flex flex-col gap-4">
+      <div className="px-5 mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {isLoading ? (
-          <p className="text-center text-on-surface-variant font-libre-franklin py-8">
+          <p className="text-center text-on-surface-variant font-libre-franklin py-8 col-span-full">
             Chargement...
           </p>
         ) : favoriteItems.length > 0 ? (
@@ -93,7 +93,7 @@ export default function FavorisPage() {
             />
           ))
         ) : (
-          <div className="flex flex-col items-center justify-center py-16 gap-4 text-center">
+          <div className="flex flex-col items-center justify-center py-16 gap-4 text-center col-span-full">
             <span className="text-[48px]">💔</span>
             <p className="font-libre-franklin text-on-surface-variant max-w-[250px]">
               Vous n'avez pas encore de favoris. Parcourez le menu pour en ajouter !

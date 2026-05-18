@@ -30,6 +30,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
+import { SmoothScroll } from "@/components/SmoothScroll";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="fr" className="antialiased">
       <body className="min-h-screen flex flex-col">
-        <FavoritesProvider>
-          {children}
-        </FavoritesProvider>
+        <SmoothScroll>
+          <FavoritesProvider>
+            {children}
+          </FavoritesProvider>
+        </SmoothScroll>
       </body>
     </html>
   );
