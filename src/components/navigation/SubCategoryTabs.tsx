@@ -148,7 +148,6 @@ export function SubCategoryTabs({
                 aria-controls={panelId(tab.slug)}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTab(tab.slug)}
-                onTouchEnd={(e) => { e.preventDefault(); setActiveTab(tab.slug); }}
                 onKeyDown={(e) => handleTabKeyDown(e, index)}
                 className={`
                   flex-1 pt-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none

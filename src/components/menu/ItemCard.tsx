@@ -19,23 +19,34 @@ interface ItemCardProps {
   isPopular?: boolean;
 }
 
+/**
+ * "Stretched link" card pattern:
+ * The card wrapper is a plain `<article>` (not a <Link>).
+ * An invisible <Link> overlay covers the card for navigation.
+ * The FavoriteButton sits ABOVE the overlay via z-index, so its
+ * click events never bubble into the Link.
+ *
+ * This is the industry-standard way to have independent interactive
+ * elements inside a clickable card, and works on all iOS Safari versions.
+ */
 export function ItemCard({ name, slug, categorySlug, price, description, imageUrl, isNew, isPopular }: ItemCardProps) {
   const [isNavigating, setIsNavigating] = useState(false);
 
   const handleCardClick = () => {
     setIsNavigating(true);
-    // Reset after 2 seconds in case navigation is cancelled or user returns via back-forward cache
-    setTimeout(() => {
-      setIsNavigating(false);
-    }, 2000);
+    setTimeout(() => { setIsNavigating(false); }, 2000);
   };
 
   return (
-    <Link
-      href={`/menu/${categorySlug}/${slug}`}
-      onClick={handleCardClick}
-      className={`group relative flex flex-col w-full bg-white border-[3px] border-deep-charcoal rounded-[4px] hover:border-deep-charcoal active:scale-[0.98] transition-all duration-200 ${isNavigating ? 'pointer-events-none' : ''}`}
-    >
+    <article className={`group relative flex flex-col w-full bg-white border-[3px] border-deep-charcoal rounded-[4px] active:scale-[0.98] transition-all duration-200 ${isNavigating ? 'pointer-events-none' : ''}`}>
+      {/* Invisible link overlay — makes the entire card clickable */}
+      <Link
+        href={`/menu/${categorySlug}/${slug}`}
+        onClick={handleCardClick}
+        className="absolute inset-0 z-[1] rounded-[1px]"
+        aria-label={`Voir ${name}`}
+      />
+
       {/* Loading Overlay */}
       {isNavigating && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/70 rounded-[1px]">
@@ -73,7 +84,8 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
           )}
         </div>
 
-        <div className="flex items-center justify-between gap-1 pt-1 mt-auto relative z-30">
+        {/* Price + Favorite — ABOVE the link overlay (z-[5] > z-[1]) */}
+        <div className="flex items-center justify-between gap-1 pt-1 mt-auto relative z-[5]">
           <PriceTag price={price} size="sm" />
           <FavoriteButton
             slug={slug}
@@ -84,6 +96,6 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
           />
         </div>
       </div>
-    </Link>
+    </article>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useCallback } from 'react';
+import React from 'react';
 import { Heart } from 'lucide-react';
 import { useFavorites } from '@/components/FavoritesProvider';
 
@@ -21,23 +21,17 @@ export function FavoriteButton({
 }: FavoriteButtonProps) {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const favorite = isFavorite(slug);
-  const handledRef = useRef(false);
 
-  const toggleFavorite = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
+    // Stop the click from reaching any parent Link
     e.preventDefault();
     e.stopPropagation();
-
-    // Guard against double-fire from touchEnd → synthetic click
-    if (handledRef.current) return;
-    handledRef.current = true;
-    setTimeout(() => { handledRef.current = false; }, 400);
-
     if (favorite) {
       removeFavorite(slug);
     } else {
       addFavorite({ slug, categorySlug });
     }
-  }, [favorite, slug, categorySlug, addFavorite, removeFavorite]);
+  };
 
   const baseClasses = "rounded-full flex items-center justify-center transition-colors min-w-[44px] min-h-[44px]";
   
@@ -52,8 +46,8 @@ export function FavoriteButton({
 
   return (
     <button 
-      onClick={toggleFavorite}
-      onTouchEnd={toggleFavorite}
+      type="button"
+      onClick={handleClick}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
     >
