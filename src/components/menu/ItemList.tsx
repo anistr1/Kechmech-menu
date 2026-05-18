@@ -8,6 +8,8 @@ interface MenuItem {
   price: number;
   description?: string;
   imageUrl?: string;
+  isNew?: boolean;
+  isPopular?: boolean;
 }
 
 interface ItemListProps {
@@ -17,7 +19,7 @@ interface ItemListProps {
 
 export function ItemList({ items, categorySlug }: ItemListProps) {
   return (
-    <div className="flex flex-col gap-4 w-full px-4 mb-8">
+    <div className="flex flex-col gap-4 w-full px-4 mb-8 pt-3">
       {items.map((item) => (
         <ItemCard
           key={item._id}
@@ -27,6 +29,8 @@ export function ItemList({ items, categorySlug }: ItemListProps) {
           price={item.price}
           description={item.description}
           imageUrl={item.imageUrl}
+          isNew={item.isNew}
+          isPopular={item.isPopular}
         />
       ))}
     </div>

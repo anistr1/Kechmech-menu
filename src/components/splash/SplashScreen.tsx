@@ -5,7 +5,6 @@ import Image from 'next/image';
 interface SplashScreenProps {
   restaurantName?: string;
   logoUrl?: string;
-  splashImageUrl?: string;
   tagline?: string;
   ctaText?: string;
   firstCategorySlug?: string;
@@ -14,7 +13,6 @@ interface SplashScreenProps {
 export function SplashScreen({
   restaurantName = 'KECHMECH',
   logoUrl,
-  splashImageUrl,
   tagline = 'Bienvenue',
   ctaText = 'VOIR NOTRE MENU',
   firstCategorySlug = 'baguette-farcie'
@@ -37,18 +35,6 @@ export function SplashScreen({
         />
       </div>
 
-      {/* Hero Image / Typographic Fallback */}
-      <div className="w-full max-w-[360px] aspect-[4/3] relative rounded-[4px] border-[3px] border-deep-charcoal overflow-hidden mb-12 bg-vibrant-yellow flex-shrink-0">
-        {splashImageUrl ? (
-          <Image src={splashImageUrl} alt="Kechmech Menu" fill sizes="360px" className="object-cover" />
-        ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center border-t-[3px] border-deep-charcoal -mt-[3px]">
-            {/* The -mt-[3px] trick hides the extra border if there's no image, keeping it clean */}
-            <span className="font-anton text-deep-charcoal text-[42px] leading-none uppercase mb-2">Street Food</span>
-            <span className="font-libre-franklin text-deep-charcoal font-bold tracking-[0.15em] text-sm uppercase">100% Tunisien</span>
-          </div>
-        )}
-      </div>
 
       {/* Tagline */}
       <h2 className="font-anton text-[40px] leading-[1.1] tracking-wide text-deep-charcoal mb-10 text-center uppercase">

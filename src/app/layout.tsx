@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { FavoritesProvider } from "@/components/FavoritesProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -36,7 +37,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className="antialiased">
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <FavoritesProvider>
+          {children}
+        </FavoritesProvider>
+      </body>
     </html>
   );
 }

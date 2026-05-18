@@ -16,7 +16,6 @@ export default async function MenuSplashPage() {
     <SplashScreen 
       restaurantName={settings?.restaurantName}
       logoUrl={settings?.logoUrl}
-      splashImageUrl={settings?.splashImageUrl}
       tagline={settings?.splashTagline}
       ctaText={settings?.ctaText}
       firstCategorySlug={firstCategorySlug}

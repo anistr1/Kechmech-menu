@@ -8,6 +8,8 @@ import { PriceTag } from '@/components/ui/PriceTag';
 import { Badge } from '@/components/ui/Badge';
 import { SupplementSection } from '@/components/menu/SupplementSection';
 
+import { FavoriteButton } from '@/components/ui/FavoriteButton';
+
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: Promise<{ itemSlug: string }> }): Promise<Metadata> {
@@ -29,8 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ itemSlug:
   };
 }
 
-export default async function ItemDetailPage({ params }: { params: Promise<{ itemSlug: string }> }) {
-  const { itemSlug } = await params;
+export default async function ItemDetailPage({ params }: { params: Promise<{ categorySlug: string, itemSlug: string }> }) {
+  const { categorySlug, itemSlug } = await params;
   const item = await client.fetch(GET_MENU_ITEM_BY_SLUG_QUERY, { slug: itemSlug });
 
   if (!item) {
@@ -43,6 +45,9 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ ite
       <div className="sticky top-0 z-40 w-full p-4 flex justify-between items-center pointer-events-none">
         <div className="pointer-events-auto">
           <BackButton />
+        </div>
+        <div className="pointer-events-auto">
+          <FavoriteButton slug={itemSlug} categorySlug={categorySlug} />
         </div>
       </div>
 

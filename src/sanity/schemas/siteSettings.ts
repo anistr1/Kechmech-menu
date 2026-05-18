@@ -16,13 +16,7 @@ export default defineType({
       options: { accept: 'image/jpeg,image/png' },
       validation: imageValidation,
     }),
-    defineField({
-      name: 'splashImage',
-      type: 'image',
-      title: 'Image Splash',
-      options: { accept: 'image/jpeg,image/png' },
-      validation: imageValidation,
-    }),
+
     defineField({ name: 'splashTagline', type: 'string', title: 'Slogan (Splash)' }),
     defineField({ name: 'ctaText', type: 'string', title: 'Texte bouton CTA' }),
   ]

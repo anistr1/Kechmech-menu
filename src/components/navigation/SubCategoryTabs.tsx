@@ -18,6 +18,8 @@ interface MenuItem {
   price: number;
   description?: string;
   imageUrl?: string;
+  isNew?: boolean;
+  isPopular?: boolean;
 }
 
 interface SubCategoryTabsProps {

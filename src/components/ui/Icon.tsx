@@ -7,7 +7,8 @@ import {
   CupSoda, 
   Utensils, 
   Flame,
-  ChefHat
+  ChefHat,
+  Heart
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -18,7 +19,8 @@ const iconMap: Record<string, React.ElementType> = {
   CupSoda,
   Utensils,
   Flame,
-  ChefHat
+  ChefHat,
+  Heart
 };
 
 interface IconProps {

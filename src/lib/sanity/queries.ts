@@ -66,7 +66,6 @@ export const GET_SITE_SETTINGS_QUERY = defineQuery(`
   *[_type == "siteSettings"][0] {
     restaurantName,
     "logoUrl": logo.asset->url,
-    "splashImageUrl": splashImage.asset->url,
     splashTagline,
     ctaText
   }
