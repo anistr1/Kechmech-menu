@@ -35,12 +35,12 @@ export function FavoriteButton({
   const baseClasses = "rounded-full flex items-center justify-center transition-colors min-w-[44px] min-h-[44px]";
   
   const variantClasses = {
-    brutal: "p-2 bg-white border-[2px] border-deep-charcoal shadow-[2px_2px_0px_rgba(26,26,26,1)] hover:bg-surface-variant active:translate-y-[1px] active:translate-x-[1px] active:shadow-[1px_1px_0px_rgba(26,26,26,1)]",
-    ghost: "p-2 hover:bg-surface-hover"
+    brutal: "p-2 bg-white border-[2px] border-deep-charcoal hover:bg-surface-variant active:scale-[0.97] transition-all",
+    ghost: "p-2 hover:bg-surface-hover active:scale-[0.97] transition-all"
   };
 
   const heartClasses = variant === 'brutal'
-    ? favorite ? 'fill-favorite-active text-favorite-active drop-shadow-sm' : 'text-deep-charcoal'
+    ? favorite ? 'fill-favorite-active text-favorite-active' : 'text-deep-charcoal'
     : favorite ? 'fill-favorite-active text-favorite-active' : 'text-on-surface-variant hover:text-deep-charcoal';
 
   return (

@@ -39,7 +39,7 @@ export function FamilialVisual({
     if (count === 2) {
       return (
         <div
-          className="w-24 h-24 rounded-full border-2 border-deep-charcoal mb-4 shadow-sm"
+          className="w-24 h-24 rounded-full border-2 border-deep-charcoal mb-4"
           style={{
             background: 'conic-gradient(var(--color-vibrant-yellow) 0deg 180deg, var(--color-tertiary) 180deg 360deg)'
           }}
@@ -54,7 +54,7 @@ export function FamilialVisual({
     // Default to 4 slices gradient for other counts
     return (
       <div
-        className="w-24 h-24 rounded-full border-2 border-deep-charcoal mb-4 shadow-sm"
+        className="w-24 h-24 rounded-full border-2 border-deep-charcoal mb-4"
         style={{
           background: 'conic-gradient(var(--color-vibrant-yellow) 0deg 90deg, #f97316 90deg 180deg, var(--color-tertiary) 180deg 270deg, var(--color-price-green) 270deg 360deg)'
         }}
@@ -106,7 +106,7 @@ export function FamilialVisual({
             {activeChoices.map((choice) => (
               <span
                 key={choice}
-                className="inline-block bg-white border-2 border-deep-charcoal rounded-full px-4 py-2 font-libre-franklin font-bold text-sm text-deep-charcoal shadow-[2px_2px_0px_#1A1A1A] hover:bg-vibrant-yellow hover:-translate-y-0.5 transition-all"
+                className="inline-block bg-white border-2 border-deep-charcoal rounded-full px-4 py-2 font-libre-franklin font-bold text-sm text-deep-charcoal hover:bg-vibrant-yellow transition-colors"
               >
                 {choice}
               </span>

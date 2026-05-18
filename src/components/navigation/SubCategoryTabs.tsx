@@ -60,14 +60,14 @@ export function SubCategoryTabs({
   const tabs = [
     ...(parentHasItems
       ? [
-          {
-            _id: 'parent',
-            slug: parentCategory.slug,
-            label: parentCategory.tabLabel || parentCategory.title,
-            baseDescription: parentCategory.baseDescription,
-            supplements: parentCategory.supplements,
-          },
-        ]
+        {
+          _id: 'parent',
+          slug: parentCategory.slug,
+          label: parentCategory.tabLabel || parentCategory.title,
+          baseDescription: parentCategory.baseDescription,
+          supplements: parentCategory.supplements,
+        },
+      ]
       : []),
     ...subCategories.map((sc) => ({
       _id: sc._id,
@@ -133,7 +133,7 @@ export function SubCategoryTabs({
         >
           {/* The bottom continuous line */}
           <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-deep-charcoal z-0" aria-hidden="true" />
-          
+
           {tabs.map((tab, index) => {
             const isActive = activeTab === tab.slug;
             return (
@@ -150,10 +150,9 @@ export function SubCategoryTabs({
                 className={`
                   flex-1 pt-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none
                   transition-all duration-200 cursor-pointer rounded-t-[4px] border-[3px] border-b-0 relative z-10
-                  ${
-                    isActive
-                      ? 'border-deep-charcoal bg-vibrant-yellow text-deep-charcoal pb-[15px]'
-                      : 'border-transparent bg-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-surface-variant pb-3 mb-[3px]'
+                  ${isActive
+                    ? 'border-deep-charcoal bg-vibrant-yellow text-deep-charcoal pb-[15px]'
+                    : 'border-transparent bg-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-surface-variant pb-3 mb-[3px]'
                   }
                 `}
               >

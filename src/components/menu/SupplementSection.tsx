@@ -17,7 +17,7 @@ export function SupplementSection({ title = 'Suppléments', supplements }: Suppl
   return (
     <div className="w-full px-5 mb-10 mt-6">
       <div className="bg-supplement-bg border-[3px] border-deep-charcoal rounded-[4px] overflow-hidden">
-        
+
         {/* Header Block */}
         <div className="bg-vibrant-yellow border-b-[3px] border-deep-charcoal px-4 py-3 flex items-center justify-between">
           <h3 className="font-anton text-[26px] text-deep-charcoal uppercase leading-none tracking-wide pt-1">
@@ -27,7 +27,7 @@ export function SupplementSection({ title = 'Suppléments', supplements }: Suppl
             Optionnel
           </span>
         </div>
-        
+
         {/* Supplements List */}
         <div className="flex flex-col p-4 gap-3">
           {supplements.map((sup) => (

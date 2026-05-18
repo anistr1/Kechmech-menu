@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Loader2 } from 'lucide-react';
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
+import { Badge } from '@/components/ui/Badge';
+import { PriceTag } from '@/components/ui/PriceTag';
 
 interface ItemCardProps {
   name: string;
@@ -36,7 +38,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
     >
       {/* Loading Overlay */}
       {isNavigating && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/40 backdrop-blur-[2px] rounded-[1px]">
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/70 rounded-[1px]">
           <Loader2 className="w-8 h-8 text-deep-charcoal animate-spin" />
         </div>
       )}
@@ -44,16 +46,8 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
       {/* Floating Badges */}
       {(isNew || isPopular) && (
         <div className="absolute -top-[12px] left-2 right-2 flex flex-wrap gap-1.5 z-10">
-          {isNew && (
-            <span className="bg-supplement-bg text-tertiary border-[2px] border-tertiary font-libre-franklin font-bold text-[13px] px-2.5 py-1 rounded-[4px] leading-none">
-              Nouveau
-            </span>
-          )}
-          {isPopular && (
-            <span className="bg-tertiary text-white border-[2px] border-tertiary font-libre-franklin font-bold text-[13px] px-2.5 py-1 rounded-[4px] leading-none">
-              Populaire
-            </span>
-          )}
+          {isNew && <Badge type="new" />}
+          {isPopular && <Badge type="popular" />}
         </div>
       )}
 
@@ -80,9 +74,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
         </div>
         
         <div className="flex items-center justify-between gap-1 pt-1 mt-auto relative z-30">
-          <span className="font-libre-franklin font-bold text-[15px] tracking-tight text-price-green whitespace-nowrap bg-price-bg px-1.5 py-0.5 rounded-[4px] border-[2px] border-price-border">
-            {price.toString().replace('.', ',')} DT
-          </span>
+          <PriceTag price={price} size="sm" />
           <FavoriteButton
             slug={slug}
             categorySlug={categorySlug}

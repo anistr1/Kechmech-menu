@@ -2,16 +2,19 @@ import React from 'react';
 
 interface BadgeProps {
   type: 'popular' | 'new';
+  className?: string;
 }
 
-export function Badge({ type }: BadgeProps) {
+export function Badge({ type, className = '' }: BadgeProps) {
   const isPopular = type === 'popular';
   
+  const baseClasses = "inline-flex items-center justify-center font-libre-franklin font-bold text-[13px] px-2.5 py-1 rounded-full leading-none border-[2px]";
+  const typeClasses = isPopular 
+    ? "bg-tertiary text-white border-tertiary" 
+    : "bg-supplement-bg text-tertiary border-tertiary";
+
   return (
-    <span 
-      className={`inline-block px-3 py-1 rounded-full font-libre-franklin font-bold text-xs uppercase tracking-wider border-2 border-deep-charcoal
-        ${isPopular ? 'bg-tertiary text-white' : 'bg-vibrant-yellow text-deep-charcoal'}`}
-    >
+    <span className={`${baseClasses} ${typeClasses} ${className}`}>
       {isPopular ? 'Populaire' : 'Nouveau'}
     </span>
   );
