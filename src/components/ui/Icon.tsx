@@ -6,9 +6,12 @@ import {
   Salad, 
   CupSoda, 
   Utensils, 
+  UtensilsCrossed,
   Flame,
   ChefHat,
-  Heart
+  Heart,
+  Wheat,
+  Croissant
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -18,9 +21,12 @@ const iconMap: Record<string, React.ElementType> = {
   Salad,
   CupSoda,
   Utensils,
+  UtensilsCrossed,
   Flame,
   ChefHat,
-  Heart
+  Heart,
+  Wheat,
+  Croissant
 };
 
 interface IconProps {

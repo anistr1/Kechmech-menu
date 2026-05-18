@@ -26,7 +26,7 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
         ) : icon ? (
           <Icon 
             name={icon} 
-            className={`w-9 h-9 ${icon === 'Heart' ? 'fill-red-500 text-red-500 drop-shadow-sm' : 'text-deep-charcoal'}`} 
+            className={`w-9 h-9 ${icon === 'Heart' ? 'text-red-500' : 'text-deep-charcoal'}`} 
           />
         ) : (
           <span className={`font-anton text-[36px] uppercase mt-2 leading-none text-deep-charcoal`}>

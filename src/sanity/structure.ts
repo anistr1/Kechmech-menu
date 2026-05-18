@@ -36,8 +36,10 @@ export const structure: StructureResolver = (S, context) =>
         .title('Articles par Catégorie')
         .icon(DocumentTextIcon)
         .child(
-          S.documentTypeList('category')
+          S.documentList()
             .title('Choisissez une catégorie')
+            .filter('_type == "category"')
+            .canHandleIntent(() => false)
             .child(categoryId =>
               (orderableDocumentListDeskItem({
                 type: 'menuItem',
