@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
 import { imageValidation } from '../lib/imageValidation'
 import { DocumentTextIcon } from '@sanity/icons'
 
@@ -7,6 +8,7 @@ export default defineType({
   title: 'Article',
   type: 'document',
   icon: DocumentTextIcon,
+  orderings: [orderRankOrdering],
   fields: [
     defineField({ name: 'name', type: 'string', title: 'Nom', validation: (rule) => rule.required() }),
     defineField({ name: 'slug', type: 'slug', options: { source: 'name' }, validation: (rule) => rule.required() }),
@@ -22,6 +24,6 @@ export default defineType({
     }),
     defineField({ name: 'isPopular', type: 'boolean', title: 'Populaire' }),
     defineField({ name: 'isNew', type: 'boolean', title: 'Nouveau' }),
-    defineField({ name: 'order', type: 'number', title: 'Ordre' }),
+    orderRankField({ type: 'menuItem', newItemPosition: 'after' }),
   ]
 })

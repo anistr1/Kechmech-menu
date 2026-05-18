@@ -1,4 +1,5 @@
 import { defineType, defineField } from 'sanity'
+import { orderRankField, orderRankOrdering } from '@sanity/orderable-document-list'
 import { imageValidation } from '../lib/imageValidation'
 import { TagIcon } from '@sanity/icons'
 
@@ -19,7 +20,7 @@ export default defineType({
       validation: imageValidation,
     }),
     defineField({ name: 'baseDescription', type: 'text', title: 'Base' }),
-    defineField({ name: 'order', type: 'number', title: 'Ordre d\'affichage' }),
+    orderRankField({ type: 'category', newItemPosition: 'after' }),
     defineField({
       name: 'parentCategory',
       type: 'reference',
@@ -36,5 +37,5 @@ export default defineType({
     }),
     defineField({ name: 'isSpecial', type: 'boolean', title: 'Catégorie spéciale (ex: Format Familial)' }),
   ],
-  orderings: [{ title: 'Ordre', name: 'order', by: [{ field: 'order', direction: 'asc' }] }]
+  orderings: [orderRankOrdering]
 })

@@ -2,7 +2,7 @@ import { defineQuery } from 'next-sanity'
 
 // Only fetch root-level categories (no parent) for the top navigation
 export const GET_CATEGORIES_QUERY = defineQuery(`
-  *[_type == "category" && !defined(parentCategory)] | order(order asc) {
+  *[_type == "category" && !defined(parentCategory)] | order(orderRank) {
     _id,
     title,
     "slug": slug.current,
@@ -35,7 +35,7 @@ export const GET_CATEGORY_BY_SLUG_QUERY = defineQuery(`
 
 // Fetch child categories for a given parent category slug
 export const GET_CHILD_CATEGORIES_QUERY = defineQuery(`
-  *[_type == "category" && parentCategory->slug.current == $slug] | order(order asc) {
+  *[_type == "category" && parentCategory->slug.current == $slug] | order(orderRank) {
     _id,
     title,
     "slug": slug.current,
@@ -50,7 +50,7 @@ export const GET_CHILD_CATEGORIES_QUERY = defineQuery(`
 `)
 
 export const GET_MENU_ITEMS_BY_CATEGORY_QUERY = defineQuery(`
-  *[_type == "menuItem" && category->slug.current == $slug] | order(order asc) {
+  *[_type == "menuItem" && category->slug.current == $slug] | order(orderRank) {
     _id,
     name,
     "slug": slug.current,
