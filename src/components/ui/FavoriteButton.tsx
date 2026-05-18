@@ -9,9 +9,16 @@ interface FavoriteButtonProps {
   categorySlug: string;
   className?: string;
   iconClassName?: string;
+  variant?: 'brutal' | 'ghost';
 }
 
-export function FavoriteButton({ slug, categorySlug, className = '', iconClassName = 'w-7 h-7' }: FavoriteButtonProps) {
+export function FavoriteButton({ 
+  slug, 
+  categorySlug, 
+  className = '', 
+  iconClassName = 'w-7 h-7',
+  variant = 'brutal'
+}: FavoriteButtonProps) {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const favorite = isFavorite(slug);
 
@@ -25,18 +32,25 @@ export function FavoriteButton({ slug, categorySlug, className = '', iconClassNa
     }
   };
 
+  const baseClasses = "rounded-full flex items-center justify-center transition-colors min-w-[44px] min-h-[44px]";
+  
+  const variantClasses = {
+    brutal: "p-2 bg-white border-[2px] border-deep-charcoal shadow-[2px_2px_0px_rgba(26,26,26,1)] hover:bg-surface-variant active:translate-y-[1px] active:translate-x-[1px] active:shadow-[1px_1px_0px_rgba(26,26,26,1)]",
+    ghost: "p-2 hover:bg-surface-hover"
+  };
+
+  const heartClasses = variant === 'brutal'
+    ? favorite ? 'fill-favorite-active text-favorite-active drop-shadow-sm' : 'text-deep-charcoal'
+    : favorite ? 'fill-favorite-active text-favorite-active' : 'text-on-surface-variant hover:text-deep-charcoal';
+
   return (
     <button 
       onClick={toggleFavorite}
-      className={`p-2 rounded-full bg-white border-[2px] border-deep-charcoal shadow-[2px_2px_0px_rgba(26,26,26,1)] hover:bg-surface-variant transition-colors active:translate-y-[1px] active:translate-x-[1px] active:shadow-[1px_1px_0px_rgba(26,26,26,1)] flex items-center justify-center ${className}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
     >
       <Heart 
-        className={`transition-colors ${iconClassName} ${
-          favorite 
-            ? 'fill-red-500 text-red-500 drop-shadow-sm' 
-            : 'text-deep-charcoal'
-        }`} 
+        className={`transition-colors ${iconClassName} ${heartClasses}`} 
       />
     </button>
   );

@@ -35,7 +35,7 @@ export function SupplementSection({ title = 'Suppléments', supplements }: Suppl
               <span className="font-libre-franklin font-bold text-[16px] text-deep-charcoal pr-4">
                 {sup.name}
               </span>
-              <span className="font-libre-franklin font-bold text-[15px] tracking-tight text-price-green whitespace-nowrap bg-[#E8F3ED] px-2 py-0.5 rounded-[4px] border-[2px] border-[#B8D8C7]">
+              <span className="font-libre-franklin font-bold text-[15px] tracking-tight text-price-green whitespace-nowrap bg-price-bg px-2 py-0.5 rounded-[4px] border-[2px] border-price-border">
                 + {sup.price.toString().replace('.', ',')} DT
               </span>
             </div>

@@ -2,19 +2,15 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { client } from '@/sanity/lib/client';
 import {
-  GET_CATEGORIES_QUERY,
   GET_CATEGORY_BY_SLUG_QUERY,
   GET_CHILD_CATEGORIES_QUERY,
   GET_MENU_ITEMS_BY_CATEGORY_QUERY,
-  GET_SITE_SETTINGS_QUERY,
 } from '@/lib/sanity/queries';
-import { CategoryNav } from '@/components/navigation/CategoryNav';
 import { CategoryHeader } from '@/components/menu/CategoryHeader';
 import { ItemList } from '@/components/menu/ItemList';
 import { SupplementSection } from '@/components/menu/SupplementSection';
 import { FamilialVisual } from '@/components/menu/FamilialVisual';
 import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
-import { NoticeBar } from '@/components/navigation/NoticeBar';
 
 export const revalidate = 60;
 
@@ -37,11 +33,9 @@ export async function generateMetadata({ params }: { params: Promise<{ categoryS
 export default async function CategoryPage({ params }: { params: Promise<{ categorySlug: string }> }) {
   const { categorySlug } = await params;
 
-  const [categories, currentCategory, childCategories, siteSettings] = await Promise.all([
-    client.fetch(GET_CATEGORIES_QUERY),
+  const [currentCategory, childCategories] = await Promise.all([
     client.fetch(GET_CATEGORY_BY_SLUG_QUERY, { slug: categorySlug }),
     client.fetch(GET_CHILD_CATEGORIES_QUERY, { slug: categorySlug }),
-    client.fetch(GET_SITE_SETTINGS_QUERY),
   ]);
 
   if (!currentCategory) {
@@ -73,14 +67,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
     return (
       <main className="min-h-screen bg-surface pb-12">
-        <NoticeBar 
-        marqueeText={siteSettings?.marqueeText}
-        instagramUrl={siteSettings?.instagramUrl}
-        facebookUrl={siteSettings?.facebookUrl}
-        tiktokUrl={siteSettings?.tiktokUrl}
-      />
-        <CategoryNav categories={categories} activeCategorySlug={categorySlug} />
-
         <CategoryHeader title={currentCategory.title} />
 
         <SubCategoryTabs
@@ -108,14 +94,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
   return (
     <main className="min-h-screen bg-surface pb-12">
-      <NoticeBar 
-        marqueeText={siteSettings?.marqueeText}
-        instagramUrl={siteSettings?.instagramUrl}
-        facebookUrl={siteSettings?.facebookUrl}
-        tiktokUrl={siteSettings?.tiktokUrl}
-      />
-      <CategoryNav categories={categories} activeCategorySlug={categorySlug} />
-
       <CategoryHeader
         title={currentCategory.title}
         baseDescription={currentCategory.baseDescription}

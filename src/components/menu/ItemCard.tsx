@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Loader2 } from 'lucide-react';
-import { useFavorites } from '@/components/FavoritesProvider';
+import { Loader2 } from 'lucide-react';
+import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
 interface ItemCardProps {
   name: string;
@@ -18,19 +18,7 @@ interface ItemCardProps {
 }
 
 export function ItemCard({ name, slug, categorySlug, price, description, imageUrl, isNew, isPopular }: ItemCardProps) {
-  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
-  const favorite = isFavorite(slug);
   const [isNavigating, setIsNavigating] = useState(false);
-
-  const toggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (favorite) {
-      removeFavorite(slug);
-    } else {
-      addFavorite({ slug, categorySlug });
-    }
-  };
 
   const handleCardClick = () => {
     setIsNavigating(true);
@@ -92,22 +80,16 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
         </div>
         
         <div className="flex items-center justify-between gap-1 pt-1 mt-auto relative z-30">
-          <span className="font-libre-franklin font-bold text-[15px] tracking-tight text-price-green whitespace-nowrap bg-[#E8F3ED] px-1.5 py-0.5 rounded-[4px] border-[2px] border-[#B8D8C7]">
+          <span className="font-libre-franklin font-bold text-[15px] tracking-tight text-price-green whitespace-nowrap bg-price-bg px-1.5 py-0.5 rounded-[4px] border-[2px] border-price-border">
             {price.toString().replace('.', ',')} DT
           </span>
-          <button 
-            onClick={toggleFavorite}
-            className="p-1 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0 -mr-1"
-            aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
-          >
-            <Heart 
-              className={`w-5 h-5 transition-colors ${
-                favorite 
-                  ? 'fill-red-500 text-red-500' 
-                  : 'text-on-surface-variant hover:text-deep-charcoal'
-              }`} 
-            />
-          </button>
+          <FavoriteButton
+            slug={slug}
+            categorySlug={categorySlug}
+            variant="ghost"
+            className="-mr-1 flex-shrink-0"
+            iconClassName="w-5 h-5"
+          />
         </div>
       </div>
     </Link>
