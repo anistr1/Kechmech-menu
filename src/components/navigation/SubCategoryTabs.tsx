@@ -39,6 +39,7 @@ interface SubCategoryTabsProps {
 
 import { ItemList } from '../menu/ItemList';
 import { SupplementSection } from '../menu/SupplementSection';
+import { FamilialVisual } from '../menu/FamilialVisual';
 
 export function SubCategoryTabs({
   parentCategory,
@@ -97,20 +98,16 @@ export function SubCategoryTabs({
                 key={tab._id}
                 onClick={() => setActiveTab(tab.slug)}
                 className={`
-                  flex-1 py-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none
+                  flex-1 pt-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none
                   transition-all duration-200 cursor-pointer rounded-t-[4px] border-[3px] border-b-0 relative z-10
                   ${
                     isActive
-                      ? 'border-deep-charcoal bg-vibrant-yellow text-deep-charcoal'
-                      : 'border-transparent bg-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-surface-variant'
+                      ? 'border-deep-charcoal bg-vibrant-yellow text-deep-charcoal pb-[15px]'
+                      : 'border-transparent bg-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-surface-variant pb-3 mb-[3px]'
                   }
                 `}
               >
                 {tab.label}
-                {/* Visual trick to overwrite the bottom border line when active */}
-                {isActive && (
-                  <div className="absolute -bottom-[3px] left-0 right-0 h-[3px] bg-vibrant-yellow" />
-                )}
               </button>
             );
           })}
@@ -131,6 +128,11 @@ export function SubCategoryTabs({
       <div className="pt-2">
         <ItemList items={activeItems} categorySlug={activeTab} />
       </div>
+
+      {/* Familial Visual (Pizza only) */}
+      {activeTab === 'pizza' && (
+        <FamilialVisual />
+      )}
 
       {/* Supplements for active tab */}
       {activeTabData?.supplements && activeTabData.supplements.length > 0 && (

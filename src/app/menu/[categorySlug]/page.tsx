@@ -85,10 +85,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           subCategories={childCategories}
           itemsBySubCategory={itemsBySubCategory}
         />
-
-        {categorySlug === 'pizza' && (
-          <FamilialVisual />
-        )}
       </main>
     );
   }

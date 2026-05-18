@@ -22,9 +22,9 @@ export function FamilialVisual() {
         {/* 2 Combinaisons Card */}
         <div className="flex-1 flex flex-col items-center p-4 border-2 border-deep-charcoal rounded-md bg-white">
           <span className="font-anton text-2xl text-deep-charcoal mb-4">30 DT</span>
-          <div 
+          <div
             className="w-24 h-24 rounded-full border-2 border-deep-charcoal mb-4 shadow-sm"
-            style={{ 
+            style={{
               background: 'conic-gradient(var(--color-vibrant-yellow) 0deg 180deg, var(--color-tertiary) 180deg 360deg)'
             }}
           >
@@ -44,9 +44,9 @@ export function FamilialVisual() {
         {/* 4 Combinaisons Card */}
         <div className="flex-1 flex flex-col items-center p-4 border-2 border-deep-charcoal rounded-md bg-white">
           <span className="font-anton text-2xl text-deep-charcoal mb-4">38 DT</span>
-          <div 
+          <div
             className="w-24 h-24 rounded-full border-2 border-deep-charcoal mb-4 shadow-sm"
-            style={{ 
+            style={{
               background: 'conic-gradient(var(--color-vibrant-yellow) 0deg 90deg, #f97316 90deg 180deg, var(--color-tertiary) 180deg 270deg, var(--color-price-green) 270deg 360deg)'
             }}
           >
@@ -72,8 +72,8 @@ export function FamilialVisual() {
           </h3>
           <div className="flex flex-wrap gap-2 justify-center">
             {CHOICES.map((choice) => (
-              <span 
-                key={choice} 
+              <span
+                key={choice}
                 className="inline-block bg-white border-2 border-deep-charcoal rounded-full px-4 py-2 font-libre-franklin font-bold text-sm text-deep-charcoal shadow-[2px_2px_0px_#1A1A1A] hover:bg-vibrant-yellow hover:-translate-y-0.5 transition-all"
               >
                 {choice}
