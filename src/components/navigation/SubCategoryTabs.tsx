@@ -169,8 +169,8 @@ export function SubCategoryTabs({
                   flex-1 py-4 px-2 font-anton text-[22px] uppercase tracking-wider text-center leading-none
                   transition-all duration-200 cursor-pointer border-r-[3px] border-deep-charcoal last:border-r-0
                   ${isActive
-                    ? 'bg-vibrant-yellow text-deep-charcoal'
-                    : 'text-on-surface-variant hover:bg-surface-variant'
+                    ? 'bg-vibrant-yellow text-deep-charcoal border-b-[4px] border-b-deep-charcoal'
+                    : 'text-on-surface-variant hover:bg-surface-variant border-b-[4px] border-b-transparent'
                   }
                 `}
               >

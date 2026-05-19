@@ -79,7 +79,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
             {name}
           </h3>
           {description && (
-            <p className="font-libre-franklin text-[12px] text-on-surface-variant mt-1 line-clamp-2 leading-tight">
+            <p className="font-libre-franklin text-[16px] text-on-surface-variant mt-1 line-clamp-2 leading-tight">
               {description}
             </p>
           )}

@@ -77,10 +77,10 @@ export function FamilialVisual({
       </div>
 
       <div className="w-full mb-8">
-        <h3 className="font-libre-franklin text-sm font-bold text-deep-charcoal uppercase tracking-widest mb-4">Choix Disponibles</h3>
+        <h3 className="font-libre-franklin text-[16px] font-bold text-deep-charcoal uppercase tracking-widest mb-4">Choix Disponibles</h3>
         <div className="flex flex-wrap gap-x-4 gap-y-2">
           {activeChoices.map((choice) => (
-            <span key={choice} className="font-libre-franklin font-bold text-sm text-deep-charcoal underline decoration-2 decoration-vibrant-yellow underline-offset-4 hover:bg-vibrant-yellow transition-colors">
+            <span key={choice} className="font-libre-franklin font-bold text-[16px] text-deep-charcoal underline decoration-2 decoration-vibrant-yellow underline-offset-4 hover:bg-vibrant-yellow transition-colors">
               {choice}
             </span>
           ))}
@@ -94,7 +94,7 @@ export function FamilialVisual({
               <span className={`font-anton text-4xl leading-none ${combo.count === 2 ? 'text-primary' : 'text-price-green'}`}>{combo.count}</span>
               <span className="font-anton text-xl text-deep-charcoal">{combo.price} DT</span>
             </div>
-            <span className="font-libre-franklin font-bold text-xs text-deep-charcoal uppercase tracking-widest mb-4">Combinaisons</span>
+            <span className="font-libre-franklin font-bold text-[14px] text-deep-charcoal uppercase tracking-widest mb-4">Combinaisons</span>
             <div className="self-center mt-auto scale-[0.6] origin-top h-16">
               {renderPizzaVisual(combo.count)}
             </div>

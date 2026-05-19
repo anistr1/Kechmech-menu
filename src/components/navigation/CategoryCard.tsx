@@ -41,8 +41,8 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
         )}
       </div>
       <span
-        className={`font-libre-franklin text-[13px] text-center w-full leading-tight uppercase tracking-wider transition-all duration-200
-          ${isActive ? 'font-bold text-deep-charcoal' : 'font-semibold text-on-surface-variant'}`}
+        className={`font-libre-franklin text-[14px] text-center w-full leading-tight uppercase tracking-wider transition-all duration-200
+          ${isActive ? 'font-bold text-deep-charcoal bg-vibrant-yellow/20 rounded px-1' : 'font-semibold text-on-surface-variant'}`}
       >
         {title}
       </span>
