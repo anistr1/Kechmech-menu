@@ -34,7 +34,9 @@ function isValidFavorites(data: unknown): data is FavoriteItem[] {
 
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const isLoaded = useRef(false);
+  const toastTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Load from localStorage on mount (localStorage persists across tabs & visits)
   useEffect(() => {
@@ -85,15 +87,23 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     }
   }, [favorites]);
 
+  const showToast = (message: string) => {
+    setToastMessage(message);
+    if (toastTimeout.current) clearTimeout(toastTimeout.current);
+    toastTimeout.current = setTimeout(() => setToastMessage(null), 2000);
+  };
+
   const addFavorite = (item: FavoriteItem) => {
     setFavorites((prev) => {
       if (prev.some((f) => f.slug === item.slug)) return prev;
       return [...prev, item];
     });
+    showToast('Ajouté aux favoris ♥');
   };
 
   const removeFavorite = (slug: string) => {
     setFavorites((prev) => prev.filter((f) => f.slug !== slug));
+    showToast('Retiré des favoris');
   };
 
   const isFavorite = (slug: string) => {
@@ -103,6 +113,11 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   return (
     <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
       {children}
+      {toastMessage && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-deep-charcoal text-vibrant-yellow border-[3px] border-vibrant-yellow font-libre-franklin font-bold px-6 py-3 rounded-full z-[100] animate-slide-up-fade text-[14px] uppercase tracking-wide">
+          {toastMessage}
+        </div>
+      )}
     </FavoritesContext.Provider>
   );
 }

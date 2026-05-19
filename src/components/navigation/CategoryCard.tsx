@@ -15,7 +15,7 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
   return (
     <Link
       href={`/menu/${slug}`}
-      className="flex flex-col items-center gap-2 group w-[76px] flex-shrink-0"
+      className="flex flex-col items-center gap-2 group w-[92px] flex-shrink-0"
     >
       <div
         className={`w-[76px] h-[76px] rounded-[4px] border-[3px] overflow-hidden relative flex items-center justify-center transition-all duration-200

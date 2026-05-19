@@ -2,6 +2,7 @@ import { getCategories, getSiteSettings } from '@/lib/sanity/data';
 import { CategoryNav } from '@/components/navigation/CategoryNav';
 import { NoticeBar } from '@/components/navigation/NoticeBar';
 import { MenuNavWrapper } from '@/components/navigation/MenuNavWrapper';
+import { ScrollToTop } from '@/components/navigation/ScrollToTop';
 
 export const revalidate = 3600;
 
@@ -22,6 +23,7 @@ export default async function MenuLayout({ children }: { children: React.ReactNo
         />
         <CategoryNav categories={categories} />
       </MenuNavWrapper>
+      <ScrollToTop />
       {children}
     </>
   );
