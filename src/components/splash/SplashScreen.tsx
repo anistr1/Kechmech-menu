@@ -85,16 +85,16 @@ export function SplashScreen({
 
 
       {/* Decorative Wavy Top Border for Neo-Brutal framing */}
-      <div className="absolute top-0 left-0 w-full h-[14px] z-20">
+      <div className="absolute top-0 left-0 w-full h-[22px] z-20">
         <svg className="w-full h-full" aria-hidden="true">
           <defs>
-            <pattern id="wavy-pattern" x="0" y="0" width="48" height="14" patternUnits="userSpaceOnUse">
+            <pattern id="wavy-pattern" x="0" y="0" width="144" height="22" patternUnits="userSpaceOnUse">
               <path 
-                d="M0,0 L48,0 L48,6 Q36,14 24,6 Q12,-2 0,6 Z" 
+                d="M0,0 L144,0 L144,10 Q108,22 72,10 Q36,-2 0,10 Z" 
                 fill="var(--color-vibrant-yellow)" 
               />
               <path 
-                d="M0,6 Q12,-2 24,6 Q36,14 48,6" 
+                d="M0,10 Q36,-2 72,10 Q108,22 144,10" 
                 fill="none" 
                 stroke="var(--color-deep-charcoal)" 
                 strokeWidth="3" 

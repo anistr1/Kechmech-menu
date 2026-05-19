@@ -57,7 +57,7 @@ export default function FavorisPage() {
     <main className="min-h-screen bg-surface pb-12">
       <CategoryHeader
         title="Vos Favoris"
-        baseDescription="Retrouvez ici tous les articles que vous avez aimés."
+        description="Retrouvez ici tous les articles que vous avez aimés."
       />
 
       <div className="px-5 mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
