@@ -19,6 +19,7 @@ export function NoticeBar({
       {/* Home Button */}
       <Link 
         href="/menu"
+        prefetch={false}
         className="text-vibrant-yellow hover:text-white transition-colors min-h-[44px] px-2 flex items-center justify-center gap-2"
         aria-label="Retour à l'accueil"
       >

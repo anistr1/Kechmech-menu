@@ -149,6 +149,7 @@ export function SplashScreen({
         {/* High-Craft Pill Button */}
         <Link
           href={`/menu/${firstCategorySlug}`}
+          prefetch={false}
           onClick={handleMenuClick}
           aria-label={`${ctaText} — parcourir le menu de ${restaurantName}`}
           className={`group relative w-full bg-deep-charcoal text-vibrant-yellow font-anton text-[22px] tracking-wider uppercase py-4 px-6 rounded-full flex items-center justify-between border-[3px] border-deep-charcoal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade ${
