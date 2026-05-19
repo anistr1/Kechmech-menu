@@ -1,11 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { client } from '@/sanity/lib/client';
-import {
-  GET_CATEGORY_BY_SLUG_QUERY,
-  GET_CHILD_CATEGORIES_QUERY,
-  GET_MENU_ITEMS_BY_CATEGORY_QUERY,
-} from '@/lib/sanity/queries';
+import { GET_ALL_CATEGORY_SLUGS_QUERY } from '@/lib/sanity/queries';
+import { getFullCategoryPage } from '@/lib/sanity/data';
 import { CategoryHeader } from '@/components/menu/CategoryHeader';
 import { ItemList } from '@/components/menu/ItemList';
 import { SupplementSection } from '@/components/menu/SupplementSection';
@@ -14,9 +11,19 @@ import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
 
 export const revalidate = 3600;
 
+/**
+ * Pre-render all category pages at build time.
+ * Menu has a small, known set of slugs — no reason for dynamic rendering.
+ */
+export async function generateStaticParams() {
+  const categories = await client.fetch(GET_ALL_CATEGORY_SLUGS_QUERY);
+  return categories;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ categorySlug: string }> }): Promise<Metadata> {
   const { categorySlug } = await params;
-  const category = await client.fetch(GET_CATEGORY_BY_SLUG_QUERY, { slug: categorySlug });
+  // Uses React.cache() — shared with the page component below (1 fetch, not 2)
+  const category = await getFullCategoryPage(categorySlug);
 
   if (!category) {
     return { title: 'Catégorie introuvable' };
@@ -33,56 +40,53 @@ export async function generateMetadata({ params }: { params: Promise<{ categoryS
 export default async function CategoryPage({ params }: { params: Promise<{ categorySlug: string }> }) {
   const { categorySlug } = await params;
 
-  const [currentCategory, childCategories] = await Promise.all([
-    client.fetch(GET_CATEGORY_BY_SLUG_QUERY, { slug: categorySlug }),
-    client.fetch(GET_CHILD_CATEGORIES_QUERY, { slug: categorySlug }),
-  ]);
+  // Single consolidated GROQ query — fetches category + children + all items
+  const data = await getFullCategoryPage(categorySlug);
 
-  if (!currentCategory) {
+  if (!data) {
     notFound();
   }
 
   // If this is a child category, redirect to the parent
-  if (currentCategory.parentSlug) {
+  if (data.parentSlug) {
     const { redirect } = await import('next/navigation');
-    redirect(`/menu/${currentCategory.parentSlug}`);
+    redirect(`/menu/${data.parentSlug}`);
   }
 
-  const hasSubCategories = childCategories && childCategories.length > 0;
+  const hasSubCategories = data.childCategories && data.childCategories.length > 0;
 
   if (hasSubCategories) {
-    // Fetch items for the parent category AND each child category in parallel
-    const allSlugs = [categorySlug, ...childCategories.map((c: { slug: string }) => c.slug)];
-    const itemResults = await Promise.all(
-      allSlugs.map((slug: string) =>
-        client.fetch(GET_MENU_ITEMS_BY_CATEGORY_QUERY, { slug })
-      )
-    );
+    // Build a map: slug → items[] from the consolidated response
+    const itemsBySubCategory: Record<string, typeof data.items> = {};
 
-    // Build a map: slug → items[]
-    const itemsBySubCategory: Record<string, typeof itemResults[0]> = {};
-    allSlugs.forEach((slug: string, i: number) => {
-      itemsBySubCategory[slug] = itemResults[i];
-    });
+    // Parent's own items (if any)
+    if (data.items && data.items.length > 0) {
+      itemsBySubCategory[data.slug] = data.items;
+    }
+
+    // Each child's items
+    for (const child of data.childCategories) {
+      itemsBySubCategory[child.slug] = child.items || [];
+    }
 
     return (
       <main className="min-h-screen bg-surface pb-12">
-        <CategoryHeader title={currentCategory.title} />
+        <CategoryHeader title={data.title} />
 
         <SubCategoryTabs
           parentCategory={{
-            title: currentCategory.title,
-            slug: currentCategory.slug,
-            tabLabel: currentCategory.tabLabel,
-            baseDescription: currentCategory.baseDescription,
-            supplements: currentCategory.supplements,
-            compositionTitle: currentCategory.compositionTitle,
-            compositionSize: currentCategory.compositionSize,
-            compositionSubtitle: currentCategory.compositionSubtitle,
-            compositionCombos: currentCategory.compositionCombos,
-            compositionChoices: currentCategory.compositionChoices,
+            title: data.title,
+            slug: data.slug,
+            tabLabel: data.tabLabel,
+            baseDescription: data.baseDescription,
+            supplements: data.supplements,
+            compositionTitle: data.compositionTitle,
+            compositionSize: data.compositionSize,
+            compositionSubtitle: data.compositionSubtitle,
+            compositionCombos: data.compositionCombos,
+            compositionChoices: data.compositionChoices,
           }}
-          subCategories={childCategories}
+          subCategories={data.childCategories}
           itemsBySubCategory={itemsBySubCategory}
         />
       </main>
@@ -90,23 +94,27 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   }
 
   // No sub-categories — original behavior
-  const items = await client.fetch(GET_MENU_ITEMS_BY_CATEGORY_QUERY, { slug: categorySlug });
-
   return (
     <main className="min-h-screen bg-surface pb-12">
       <CategoryHeader
-        title={currentCategory.title}
-        baseDescription={currentCategory.baseDescription}
+        title={data.title}
+        baseDescription={data.baseDescription}
       />
 
-      <ItemList items={items} categorySlug={categorySlug} />
+      <ItemList items={data.items || []} categorySlug={categorySlug} />
 
-      {currentCategory.supplements && currentCategory.supplements.length > 0 && (
-        <SupplementSection supplements={currentCategory.supplements} />
+      {data.supplements && data.supplements.length > 0 && (
+        <SupplementSection supplements={data.supplements} />
       )}
 
       {categorySlug === 'pizza' && (
-        <FamilialVisual />
+        <FamilialVisual
+          title={data.compositionTitle}
+          size={data.compositionSize}
+          subtitle={data.compositionSubtitle}
+          combos={data.compositionCombos}
+          choices={data.compositionChoices}
+        />
       )}
     </main>
   );

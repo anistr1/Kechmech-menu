@@ -1,13 +1,12 @@
 import { SplashScreen } from '@/components/splash/SplashScreen';
-import { client } from '@/sanity/lib/client';
-import { GET_SITE_SETTINGS_QUERY, GET_CATEGORIES_QUERY } from '@/lib/sanity/queries';
+import { getSiteSettings, getCategories } from '@/lib/sanity/data';
 
 export const revalidate = 3600;
 
 export default async function MenuSplashPage() {
   const [settings, categories] = await Promise.all([
-    client.fetch(GET_SITE_SETTINGS_QUERY),
-    client.fetch(GET_CATEGORIES_QUERY)
+    getSiteSettings(),
+    getCategories()
   ]);
   
   const firstCategorySlug = categories?.[0]?.slug || 'pizza';

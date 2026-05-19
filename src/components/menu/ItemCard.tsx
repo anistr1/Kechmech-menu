@@ -42,6 +42,7 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
       {/* Invisible link overlay — makes the entire card clickable */}
       <Link
         href={`/menu/${categorySlug}/${slug}`}
+        prefetch={false}
         onClick={handleCardClick}
         className="absolute inset-0 z-[1] rounded-[1px]"
         aria-label={`Voir ${name}`}

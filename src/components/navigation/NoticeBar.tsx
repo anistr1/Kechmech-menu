@@ -30,14 +30,8 @@ export function NoticeBar({
 
       {/* Marquee Text */}
       <div className="flex-1 overflow-hidden relative mx-4 flex items-center h-full">
-        <div className="flex animate-marquee whitespace-nowrap w-max">
+        <div className="flex animate-marquee whitespace-nowrap w-max will-change-transform">
           <span className="pr-8 font-libre-franklin text-[13px] tracking-widest uppercase font-semibold">
-            {marqueeText}
-          </span>
-          <span className="pr-8 font-libre-franklin text-[13px] tracking-widest uppercase font-semibold" aria-hidden="true">
-            {marqueeText}
-          </span>
-          <span className="pr-8 font-libre-franklin text-[13px] tracking-widest uppercase font-semibold" aria-hidden="true">
             {marqueeText}
           </span>
           <span className="pr-8 font-libre-franklin text-[13px] tracking-widest uppercase font-semibold" aria-hidden="true">

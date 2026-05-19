@@ -55,7 +55,7 @@ export function SplashScreen({
   });
 
   // Marquee text array to repeat
-  const marqueeItems = Array(12).fill(`${restaurantName} • FRESH & TASTY • `);
+  const marqueeItems = Array(6).fill(`${restaurantName} • FRESH & TASTY • `);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[100dvh] w-full bg-surface px-6 py-12 relative overflow-hidden">
@@ -68,7 +68,7 @@ export function SplashScreen({
         {[...Array(5)].map((_, i) => (
           <div key={i} className="whitespace-nowrap flex overflow-hidden">
             <div 
-              className="animate-marquee-bg flex" 
+              className="animate-marquee-bg flex will-change-transform" 
               style={{ 
                 animationDirection: i % 2 === 1 ? 'reverse' : 'normal',
                 animationDuration: i % 2 === 1 ? '85s' : '100s' // much slower

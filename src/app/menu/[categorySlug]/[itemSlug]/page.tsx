@@ -2,7 +2,8 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { client } from '@/sanity/lib/client';
-import { GET_MENU_ITEM_BY_SLUG_QUERY } from '@/lib/sanity/queries';
+import { GET_ALL_ITEM_SLUGS_QUERY } from '@/lib/sanity/queries';
+import { getMenuItemBySlug } from '@/lib/sanity/data';
 import { BackButton } from '@/components/ui/BackButton';
 import { PriceTag } from '@/components/ui/PriceTag';
 import { Badge } from '@/components/ui/Badge';
@@ -12,9 +13,18 @@ import { FavoriteButton } from '@/components/ui/FavoriteButton';
 
 export const revalidate = 3600;
 
+/**
+ * Pre-render all item detail pages at build time.
+ */
+export async function generateStaticParams() {
+  const items = await client.fetch(GET_ALL_ITEM_SLUGS_QUERY);
+  return items;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ itemSlug: string }> }): Promise<Metadata> {
   const { itemSlug } = await params;
-  const item = await client.fetch(GET_MENU_ITEM_BY_SLUG_QUERY, { slug: itemSlug });
+  // Uses React.cache() — shared with the page component (1 fetch, not 2)
+  const item = await getMenuItemBySlug(itemSlug);
 
   if (!item) {
     return { title: 'Article introuvable' };
@@ -33,7 +43,8 @@ export async function generateMetadata({ params }: { params: Promise<{ itemSlug:
 
 export default async function ItemDetailPage({ params }: { params: Promise<{ categorySlug: string, itemSlug: string }> }) {
   const { categorySlug, itemSlug } = await params;
-  const item = await client.fetch(GET_MENU_ITEM_BY_SLUG_QUERY, { slug: itemSlug });
+  // Uses React.cache() — deduplicated with generateMetadata above
+  const item = await getMenuItemBySlug(itemSlug);
 
   if (!item) {
     notFound();

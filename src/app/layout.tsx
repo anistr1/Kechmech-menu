@@ -1,6 +1,29 @@
 import type { Metadata, Viewport } from "next";
+import { Anton, Libre_Franklin, Caveat } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/components/FavoritesProvider";
+
+// Self-host fonts via Next.js — eliminates render-blocking network request
+const anton = Anton({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-anton",
+  display: "swap",
+});
+
+const libreFranklin = Libre_Franklin({
+  weight: ["400", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-libre-franklin",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  weight: "700",
+  subsets: ["latin"],
+  variable: "--font-handwritten",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -30,21 +53,21 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-import { SmoothScroll } from "@/components/SmoothScroll";
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="antialiased" suppressHydrationWarning>
+    <html
+      lang="fr"
+      className={`${anton.variable} ${libreFranklin.variable} ${caveat.variable} antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen flex flex-col">
-        <SmoothScroll>
-          <FavoritesProvider>
-            {children}
-          </FavoritesProvider>
-        </SmoothScroll>
+        <FavoritesProvider>
+          {children}
+        </FavoritesProvider>
       </body>
     </html>
   );

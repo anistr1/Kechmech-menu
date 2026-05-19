@@ -1,5 +1,4 @@
-import { client } from '@/sanity/lib/client';
-import { GET_CATEGORIES_QUERY, GET_SITE_SETTINGS_QUERY } from '@/lib/sanity/queries';
+import { getCategories, getSiteSettings } from '@/lib/sanity/data';
 import { CategoryNav } from '@/components/navigation/CategoryNav';
 import { NoticeBar } from '@/components/navigation/NoticeBar';
 import { MenuNavWrapper } from '@/components/navigation/MenuNavWrapper';
@@ -8,8 +7,8 @@ export const revalidate = 3600;
 
 export default async function MenuLayout({ children }: { children: React.ReactNode }) {
   const [categories, siteSettings] = await Promise.all([
-    client.fetch(GET_CATEGORIES_QUERY),
-    client.fetch(GET_SITE_SETTINGS_QUERY),
+    getCategories(),
+    getSiteSettings(),
   ]);
 
   return (
