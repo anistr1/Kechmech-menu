@@ -2,13 +2,14 @@
  * Sanity Webhook Revalidation Endpoint
  *
  * Receives POST requests from Sanity when content changes,
- * validates the HMAC-SHA256 signature, and invalidates the
- * matching cache tags so pages re-render with fresh data.
+ * validates the HMAC-SHA256 signature, and invalidates both
+ * the Data Cache (via revalidateTag) and the Full Route Cache
+ * (via revalidatePath) so pages re-render with fresh data.
  *
  * Configure the webhook at: https://www.sanity.io/manage
  * → Project → API → Webhooks
  */
-import { revalidateTag } from 'next/cache';
+import { revalidateTag, revalidatePath } from 'next/cache';
 import { parseBody } from 'next-sanity/webhook';
 import type { NextRequest } from 'next/server';
 
@@ -57,7 +58,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Invalidate the primary tag (expire: 0 for immediate webhook invalidation)
+    // Invalidate the Data Cache tags
     revalidateTag(type, { expire: 0 });
 
     // Invalidate cascading dependencies
@@ -68,7 +69,13 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    console.log(`[revalidate] Purged tag "${type}"${cascades ? ` + cascades: ${cascades.join(', ')}` : ''}`);
+    // Bust the Full Route Cache for all menu pages.
+    // revalidateTag may not fully propagate to route-level caches
+    // when used with unstable_cache in Next.js 16, so we explicitly
+    // invalidate the route tree as well.
+    revalidatePath('/menu', 'layout');
+
+    console.log(`[revalidate] Purged tag "${type}"${cascades ? ` + cascades: ${cascades.join(', ')}` : ''} + route cache`);
 
     return Response.json({
       revalidated: true,
