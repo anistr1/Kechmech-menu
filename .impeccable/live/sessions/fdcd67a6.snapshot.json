@@ -1,0 +1,60 @@
+{
+  "id": "fdcd67a6",
+  "phase": "completed",
+  "pageUrl": "/menu/pizza",
+  "sourceFile": "src\\components\\menu\\FamilialVisual.tsx",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 3,
+  "paramValues": {
+    "header-size": 36,
+    "accent": "tertiary"
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 33,
+  "activeOwner": "b7f4b88a",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 1
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 2
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 3
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 4
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 5
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 6
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 7
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 8
+    },
+    {
+      "error": "stale_checkpoint_ignored",
+      "revision": 9
+    }
+  ],
+  "updatedAt": "2026-05-19T01:49:34.552Z"
+}

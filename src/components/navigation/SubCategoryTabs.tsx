@@ -129,13 +129,10 @@ export function SubCategoryTabs({
       {/* Folder-style Tab Bar */}
       <div className="w-full px-5 mb-6">
         <div
-          className="flex gap-2 relative"
+          className="flex relative border-[3px] border-deep-charcoal bg-white rounded-[4px] overflow-hidden"
           role="tablist"
           aria-label={`Sous-catégories de ${parentCategory.title}`}
         >
-          {/* The bottom continuous line */}
-          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-deep-charcoal z-0" aria-hidden="true" />
-
           {tabs.map((tab, index) => {
             const isActive = activeTab === tab.slug;
             return (
@@ -150,11 +147,11 @@ export function SubCategoryTabs({
                 onClick={() => setActiveTab(tab.slug)}
                 onKeyDown={(e) => handleTabKeyDown(e, index)}
                 className={`
-                  flex-1 pt-3 px-3 font-anton text-[22px] uppercase tracking-wider text-center leading-none
-                  transition-all duration-200 cursor-pointer rounded-t-[4px] border-[3px] border-b-0 relative z-10
+                  flex-1 py-4 px-2 font-anton text-[22px] uppercase tracking-wider text-center leading-none
+                  transition-all duration-200 cursor-pointer border-r-[3px] border-deep-charcoal last:border-r-0
                   ${isActive
-                    ? 'border-deep-charcoal bg-vibrant-yellow text-deep-charcoal pb-[15px]'
-                    : 'border-transparent bg-transparent text-on-surface-variant hover:text-deep-charcoal hover:bg-surface-variant pb-3 mb-[3px]'
+                    ? 'bg-vibrant-yellow text-deep-charcoal'
+                    : 'text-on-surface-variant hover:bg-surface-variant'
                   }
                 `}
               >

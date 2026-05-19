@@ -1,0 +1,28 @@
+{
+  "id": "3221c821",
+  "phase": "completed",
+  "pageUrl": "/menu/sandwich",
+  "sourceFile": "src\\components\\navigation\\SubCategoryTabs.tsx",
+  "expectedVariants": 3,
+  "arrivedVariants": 3,
+  "visibleVariant": 3,
+  "paramValues": {
+    "accent": "yellow"
+  },
+  "pendingEventSeq": null,
+  "pendingEvent": null,
+  "deliveryLease": null,
+  "checkpointRevision": 31,
+  "activeOwner": "b7f4b88a",
+  "sourceMarkers": {},
+  "fallbackMode": null,
+  "annotationArtifacts": [],
+  "diagnostics": [
+    {
+      "error": "carbonize_cleanup_required",
+      "file": "src\\components\\navigation\\SubCategoryTabs.tsx",
+      "message": "Accepted variant still has carbonize markers that must be folded into source CSS."
+    }
+  ],
+  "updatedAt": "2026-05-19T01:40:07.881Z"
+}

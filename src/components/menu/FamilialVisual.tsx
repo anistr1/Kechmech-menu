@@ -68,51 +68,38 @@ export function FamilialVisual({
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full text-center py-6 px-4 mb-6 border-b-2 border-deep-charcoal">
-        <h2 className="font-anton text-headline-lg-mobile text-deep-charcoal uppercase mb-2">
-          {title} {size && <span className="text-xl tracking-normal text-tertiary">{size}</span>}
+    <div className="w-full flex flex-col p-6 mb-8 border-b-[3px] border-deep-charcoal bg-white">
+      <div className="w-full mb-8 text-left border-b-[3px] border-deep-charcoal pb-4">
+        <h2 className="font-anton uppercase text-deep-charcoal leading-none text-[36px]">
+          {title} {size && <span className="ml-2 text-tertiary">{size}</span>}
         </h2>
-        {subtitle && (
-          <p className="font-libre-franklin text-body-lg font-bold text-on-surface-variant italic">
-            {subtitle}
-          </p>
-        )}
+        {subtitle && <p className="font-libre-franklin font-bold text-on-surface-variant italic mt-3 text-lg">{subtitle}</p>}
       </div>
 
-      <div className="flex w-full px-4 gap-4 justify-center items-stretch max-w-lg mb-8">
+      <div className="w-full mb-8">
+        <h3 className="font-libre-franklin text-sm font-bold text-deep-charcoal uppercase tracking-widest mb-4">Choix Disponibles</h3>
+        <div className="flex flex-wrap gap-x-4 gap-y-2">
+          {activeChoices.map((choice) => (
+            <span key={choice} className="font-libre-franklin font-bold text-sm text-deep-charcoal underline decoration-2 decoration-vibrant-yellow underline-offset-4 hover:bg-vibrant-yellow transition-colors">
+              {choice}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex w-full gap-4 items-stretch flex-wrap">
         {activeCombos.map((combo, index) => (
-          <div key={index} className="flex-1 flex flex-col items-center p-4 border-2 border-deep-charcoal rounded-md bg-white">
-            <span className="font-anton text-2xl text-deep-charcoal mb-4">{combo.price} DT</span>
-            {renderPizzaVisual(combo.count)}
-            <div className="text-center flex flex-col items-center">
-              <span className={`font-anton text-5xl leading-none ${combo.count === 2 ? 'text-primary' : 'text-price-green'}`}>
-                {combo.count}
-              </span>
-              <span className="font-libre-franklin font-bold text-sm text-deep-charcoal uppercase tracking-wider mt-1">
-                Combinaisons
-              </span>
+          <div key={index} className="flex-1 min-w-[140px] flex flex-col p-4 border-[3px] border-deep-charcoal bg-supplement-bg">
+            <div className="flex justify-between items-start w-full mb-4">
+              <span className={`font-anton text-4xl leading-none ${combo.count === 2 ? 'text-primary' : 'text-price-green'}`}>{combo.count}</span>
+              <span className="font-anton text-xl text-deep-charcoal">{combo.price} DT</span>
+            </div>
+            <span className="font-libre-franklin font-bold text-xs text-deep-charcoal uppercase tracking-widest mb-4">Combinaisons</span>
+            <div className="self-center mt-auto scale-[0.6] origin-top h-16">
+              {renderPizzaVisual(combo.count)}
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="w-full px-4 mb-8">
-        <div className="bg-supplement-bg border-2 border-deep-charcoal rounded-md p-6">
-          <h3 className="font-libre-franklin text-title-md text-center mb-6 text-deep-charcoal">
-            Choix Disponibles
-          </h3>
-          <div className="flex flex-wrap gap-2 justify-center">
-            {activeChoices.map((choice) => (
-              <span
-                key={choice}
-                className="inline-block bg-white border-2 border-deep-charcoal rounded-full px-4 py-2 font-libre-franklin font-bold text-sm text-deep-charcoal hover:bg-vibrant-yellow transition-colors"
-              >
-                {choice}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
