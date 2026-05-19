@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useId } from 'react';
 
 interface SubCategory {
   _id: string;
@@ -51,9 +51,11 @@ export function SubCategoryTabs({
   subCategories,
   itemsBySubCategory,
 }: SubCategoryTabsProps) {
-  // Avoid useId() — it generates IDs with colons (e.g. `:r1:`) that older
-  // iOS Safari (iPhone 7) can't handle in ARIA attributes
-  const instanceId = useMemo(() => `sct-${Math.random().toString(36).slice(2, 8)}`, []);
+  // useId() is stable across server/client, preventing hydration mismatches.
+  // We strip colons because older iOS Safari (iPhone 7) can't handle them in ARIA attributes.
+  const rawId = useId();
+  const instanceId = `sct-${rawId.replace(/:/g, '')}`;
+
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   // Build tab list: parent first (if it has its own items), then children

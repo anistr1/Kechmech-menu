@@ -79,10 +79,10 @@ export default function Home() {
 
         {/* Subtitle / Details */}
         <p className="font-libre-franklin text-xl font-bold text-deep-charcoal animate-slide-up-fade" style={{ animationDelay: '400ms' }}>
-          Votre restau préféré arrive bientôt.
+          Le compte à rebours a commencé.
         </p>
         <p className="font-libre-franklin text-base text-on-surface-variant mt-2 animate-slide-up-fade" style={{ animationDelay: '460ms' }}>
-          Les baguettes se préparent, le makloub mijote. La ouverture approche.
+          Les baguettes se préparent, le makloub mijote. L'ouverture approche.
         </p>
       </div>
 
