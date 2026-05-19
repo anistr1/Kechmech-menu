@@ -124,6 +124,30 @@ html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb:hover {
   animation: marquee 15s linear infinite;
 }
 
+/* Splash screen background marquee */
+@keyframes marquee-bg {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-30%); }
+}
+
+.animate-marquee-bg {
+  animation: marquee-bg 100s linear infinite;
+  width: fit-content;
+}
+
+/* SVG hand-drawn brush line reveal */
+@keyframes draw-line {
+  from { stroke-dashoffset: 200; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-draw-line {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw-line 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 600ms;
+}
+
 /* Entrance Animations */
 :root {
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -174,4 +198,14 @@ html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  /* Splash-specific overrides for cleaner reduced-motion states */
+  .animate-marquee-bg {
+    animation: none;
+    transform: translateX(-5%);
+  }
+  .animate-draw-line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
 }
+

@@ -18,6 +18,20 @@ const STORAGE_KEY = 'kechmech_favorites';
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
+/** Runtime guard: ensures localStorage data matches the expected shape before trusting it */
+function isValidFavorites(data: unknown): data is FavoriteItem[] {
+  if (!Array.isArray(data)) return false;
+  return data.every((item) => {
+    if (typeof item !== 'object' || item === null) return false;
+    const rec = item as Record<string, unknown>;
+    return (
+      typeof rec.slug === 'string' &&
+      rec.slug.length > 0 &&
+      typeof rec.categorySlug === 'string'
+    );
+  });
+}
+
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
   const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
   const isLoaded = useRef(false);
@@ -27,12 +41,20 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        setFavorites(JSON.parse(stored));
+        const parsed: unknown = JSON.parse(stored);
+        if (isValidFavorites(parsed)) {
+          setFavorites(parsed);
+        } else {
+          // Corrupted or tampered data — wipe it
+          localStorage.removeItem(STORAGE_KEY);
+          console.warn('Favorites data was invalid and has been reset.');
+        }
       }
       // Also migrate any existing sessionStorage data from before this fix
       const sessionStored = sessionStorage.getItem('kechmech_favorites');
       if (sessionStored) {
-        const sessionFavs: FavoriteItem[] = JSON.parse(sessionStored);
+        const parsed: unknown = JSON.parse(sessionStored);
+        const sessionFavs = isValidFavorites(parsed) ? parsed : [];
         if (sessionFavs.length > 0) {
           setFavorites((prev) => {
             const merged = [...prev];

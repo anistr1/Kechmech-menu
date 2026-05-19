@@ -82,36 +82,7 @@ export function SplashScreen({
         ))}
       </div>
 
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes marquee-bg {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-30%); }
-        }
-        .animate-marquee-bg {
-          animation: marquee-bg 100s linear infinite;
-          width: fit-content;
-        }
-        @keyframes draw-line {
-          from { stroke-dashoffset: 200; }
-          to { stroke-dashoffset: 0; }
-        }
-        .animate-draw-line {
-          stroke-dasharray: 200;
-          stroke-dashoffset: 200;
-          animation: draw-line 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          animation-delay: 600ms;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .animate-marquee-bg {
-            animation: none;
-            transform: translateX(-5%);
-          }
-          .animate-draw-line {
-            animation: none;
-            stroke-dashoffset: 0;
-          }
-        }
-      `}} />
+
 
       {/* Decorative Wavy Top Border for Neo-Brutal framing */}
       <div className="absolute top-0 left-0 w-full h-[14px] z-20">

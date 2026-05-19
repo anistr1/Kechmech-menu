@@ -53,3 +53,10 @@ next-env.d.ts
 
 # Scripts
 /scripts/
+
+# One-off seed / migration scripts at project root
+/seed-pizza-supplements.ts
+/update-pizza-composition.ts
+
+# Project context snapshot (generated, not source)
+/context.json

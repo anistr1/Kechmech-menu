@@ -4,40 +4,48 @@ import React, { useEffect, useState } from 'react';
 import { CategoryHeader } from '@/components/menu/CategoryHeader';
 import { ItemCard } from '@/components/menu/ItemCard';
 import { useFavorites } from '@/components/FavoritesProvider';
-import { client } from '@/sanity/lib/client';
+
+interface FavoriteMenuItem {
+  _id: string;
+  name: string;
+  slug: string;
+  categorySlug: string;
+  price: number;
+  description?: string;
+  imageUrl?: string;
+  isNew?: boolean;
+  isPopular?: boolean;
+}
 
 export default function FavorisPage() {
   const { favorites } = useFavorites();
-  const [favoriteItems, setFavoriteItems] = useState<any[]>([]);
+  const [favoriteItems, setFavoriteItems] = useState<FavoriteMenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
         if (favorites.length > 0) {
-          // Fetch favorite items using Sanity groq query
-          const slugs = favorites.map(f => f.slug);
-          const items = await client.fetch(
-            `*[_type == "menuItem" && slug.current in $slugs] {
-              _id,
-              name,
-              "slug": slug.current,
-              "categorySlug": category->slug.current,
-              price,
-              description,
-              "imageUrl": image.asset->url,
-              isNew,
-              isPopular
-            }`,
-            { slugs }
-          );
+          const slugs = favorites.map((f) => f.slug);
+          const res = await fetch('/api/favorites', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slugs }),
+          });
 
-          setFavoriteItems(items);
+          if (!res.ok) {
+            throw new Error(`Server error: ${res.status}`);
+          }
+
+          const items: FavoriteMenuItem[] = await res.json();
+          // Filter out any items where categorySlug is null (broken Sanity references)
+          setFavoriteItems(items.filter((item) => !!item.categorySlug));
         } else {
           setFavoriteItems([]);
         }
       } catch (error) {
-        console.error("Failed to fetch favorites data", error);
+        console.error('Failed to fetch favorites data', error);
+        setFavoriteItems([]);
       } finally {
         setIsLoading(false);
       }
@@ -75,7 +83,7 @@ export default function FavorisPage() {
           <div className="flex flex-col items-center justify-center py-16 gap-4 text-center col-span-full">
             <span className="text-[48px]">💔</span>
             <p className="font-libre-franklin text-on-surface-variant max-w-[250px]">
-              Vous n'avez pas encore de favoris. Parcourez le menu pour en ajouter !
+              Vous n&apos;avez pas encore de favoris. Parcourez le menu pour en ajouter !
             </p>
           </div>
         )}
