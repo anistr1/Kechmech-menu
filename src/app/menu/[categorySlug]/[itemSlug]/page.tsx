@@ -87,7 +87,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
         <h1 className="font-anton text-[32px] leading-[36px] text-deep-charcoal uppercase tracking-wide">
           {item.name}
         </h1>
-        
+
         <div className="flex flex-wrap items-center gap-3">
           <PriceTag price={item.price} size="lg" />
           {(item.isPopular || item.isNew) && (
