@@ -1,5 +1,5 @@
 const MAX_IMAGE_SIZE = 512_000 // 500 KB
-const ALLOWED_EXTENSIONS = ['jpg', 'png']
+const ALLOWED_EXTENSIONS = ['jpg', 'png', 'webp']
 
 export const imageValidation = (Rule: any) =>
   Rule.custom(async (value: any, context: any) => {
@@ -8,7 +8,7 @@ export const imageValidation = (Rule: any) =>
     // 1. Check format from asset ref (format: image-{id}-{dimensions}-{ext})
     const ext = value.asset._ref.split('-').pop()
     if (!ALLOWED_EXTENSIONS.includes(ext)) {
-      return 'Format accepté : JPG ou PNG uniquement'
+      return 'Format accepté : JPG, PNG ou WebP uniquement'
     }
 
     // 2. Check file size via Sanity client

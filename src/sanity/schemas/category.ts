@@ -23,7 +23,7 @@ export default defineType({
       name: 'image',
       type: 'image',
       title: 'Image catégorie',
-      options: { accept: 'image/jpeg,image/png' },
+      options: { accept: 'image/jpeg,image/png,image/webp' },
       validation: imageValidation,
     }),
     defineField({ name: 'baseDescription', type: 'text', title: 'Base' }),

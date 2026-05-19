@@ -13,7 +13,7 @@ export default defineType({
       name: 'logo',
       type: 'image',
       title: 'Logo',
-      options: { accept: 'image/jpeg,image/png' },
+      options: { accept: 'image/jpeg,image/png,image/webp' },
       validation: imageValidation,
     }),
 

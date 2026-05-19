@@ -19,7 +19,7 @@ export default defineType({
       name: 'image',
       type: 'image',
       title: 'Photo',
-      options: { accept: 'image/jpeg,image/png' },
+      options: { accept: 'image/jpeg,image/png,image/webp' },
       validation: imageValidation,
     }),
     defineField({ name: 'isPopular', type: 'boolean', title: 'Populaire' }),
