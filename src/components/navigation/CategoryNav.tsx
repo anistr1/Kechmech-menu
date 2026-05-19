@@ -57,7 +57,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
 
   return (
     <nav className="w-full bg-surface border-b-[3px] border-deep-charcoal sticky top-0 z-40 py-4 relative">
-      <div className="flex overflow-x-auto px-5 pb-3 gap-5 items-start relative z-10">
+      <div className="flex overflow-x-auto px-5 pt-1 pb-3 gap-5 items-start relative z-10">
         {navCategories.map((cat) => {
           const isActive = cat.slug === activeCategorySlug;
           return (
