@@ -1,4 +1,4 @@
-const MAX_IMAGE_SIZE = 512_000 // 500 KB
+const MAX_IMAGE_SIZE = 2_097_152 // 2 MB
 const ALLOWED_EXTENSIONS = ['jpg', 'png', 'webp']
 
 export const imageValidation = (Rule: any) =>
@@ -24,7 +24,7 @@ export const imageValidation = (Rule: any) =>
     )
     if (assetDoc?.size && assetDoc.size > MAX_IMAGE_SIZE) {
       const sizeKB = Math.round(assetDoc.size / 1024)
-      return `Image trop lourde (${sizeKB} KB). Maximum : 500 KB`
+      return `Image trop lourde (${sizeKB} KB). Maximum : 2 Mo`
     }
 
     return true
