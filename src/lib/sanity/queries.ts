@@ -50,7 +50,12 @@ export const GET_CHILD_CATEGORIES_QUERY = defineQuery(`
       _id,
       name,
       price
-    }
+    },
+    compositionTitle,
+    compositionSize,
+    compositionSubtitle,
+    compositionCombos,
+    compositionChoices
   }
 `)
 
@@ -150,6 +155,11 @@ export const GET_FULL_CATEGORY_PAGE_QUERY = defineQuery(`
         name,
         price
       },
+      compositionTitle,
+      compositionSize,
+      compositionSubtitle,
+      compositionCombos,
+      compositionChoices,
       "items": *[_type == "menuItem" && category._ref == ^._id] | order(orderRank) {
         _id,
         name,

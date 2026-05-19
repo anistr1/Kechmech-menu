@@ -6,7 +6,6 @@ import { getFullCategoryPage } from '@/lib/sanity/data';
 import { CategoryHeader } from '@/components/menu/CategoryHeader';
 import { ItemList } from '@/components/menu/ItemList';
 import { SupplementSection } from '@/components/menu/SupplementSection';
-import { FamilialVisual } from '@/components/menu/FamilialVisual';
 import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
 
 export const revalidate = 3600;
@@ -80,11 +79,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             tabLabel: data.tabLabel,
             baseDescription: data.baseDescription,
             supplements: data.supplements,
-            compositionTitle: data.compositionTitle,
-            compositionSize: data.compositionSize,
-            compositionSubtitle: data.compositionSubtitle,
-            compositionCombos: data.compositionCombos,
-            compositionChoices: data.compositionChoices,
           }}
           subCategories={data.childCategories}
           itemsBySubCategory={itemsBySubCategory}
@@ -105,16 +99,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
       {data.supplements && data.supplements.length > 0 && (
         <SupplementSection supplements={data.supplements} />
-      )}
-
-      {categorySlug === 'pizza' && (
-        <FamilialVisual
-          title={data.compositionTitle}
-          size={data.compositionSize}
-          subtitle={data.compositionSubtitle}
-          combos={data.compositionCombos}
-          choices={data.compositionChoices}
-        />
       )}
     </main>
   );

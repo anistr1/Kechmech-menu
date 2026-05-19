@@ -9,6 +9,11 @@ interface SubCategory {
   tabLabel?: string;
   baseDescription?: string;
   supplements?: { _id: string; name: string; price: number }[];
+  compositionTitle?: string;
+  compositionSize?: string;
+  compositionSubtitle?: string;
+  compositionCombos?: { count: number; price: number }[];
+  compositionChoices?: string[];
 }
 
 interface MenuItem {
@@ -30,11 +35,6 @@ interface SubCategoryTabsProps {
     tabLabel?: string;
     baseDescription?: string;
     supplements?: { _id: string; name: string; price: number }[];
-    compositionTitle?: string;
-    compositionSize?: string;
-    compositionSubtitle?: string;
-    compositionCombos?: { count: number; price: number }[];
-    compositionChoices?: string[];
   };
   /** The child sub-categories */
   subCategories: SubCategory[];
@@ -68,6 +68,11 @@ export function SubCategoryTabs({
           label: parentCategory.tabLabel || parentCategory.title,
           baseDescription: parentCategory.baseDescription,
           supplements: parentCategory.supplements,
+          compositionTitle: undefined as string | undefined,
+          compositionSize: undefined as string | undefined,
+          compositionSubtitle: undefined as string | undefined,
+          compositionCombos: undefined as { count: number; price: number }[] | undefined,
+          compositionChoices: undefined as string[] | undefined,
         },
       ]
       : []),
@@ -77,6 +82,11 @@ export function SubCategoryTabs({
       label: sc.tabLabel || sc.title,
       baseDescription: sc.baseDescription,
       supplements: sc.supplements,
+      compositionTitle: sc.compositionTitle,
+      compositionSize: sc.compositionSize,
+      compositionSubtitle: sc.compositionSubtitle,
+      compositionCombos: sc.compositionCombos,
+      compositionChoices: sc.compositionChoices,
     })),
   ];
 
@@ -120,7 +130,9 @@ export function SubCategoryTabs({
   const panelId = (slug: string) => `${instanceId}-panel-${slug}`;
 
   const activeTabData = tabs.find((t) => t.slug === activeTab);
-  const activeItems = itemsBySubCategory[activeTab] ?? [];
+  // A tab is a "composition" tab if it has compositionChoices from Sanity
+  const isCompositionTab = !!(activeTabData?.compositionChoices && activeTabData.compositionChoices.length > 0);
+  const activeItems = isCompositionTab ? [] : (itemsBySubCategory[activeTab] ?? []);
 
   if (tabs.length === 0) return null;
 
@@ -184,25 +196,33 @@ export function SubCategoryTabs({
           </div>
         )}
 
-        {/* Items */}
-        <div className="pt-2">
-          <ItemList items={activeItems} categorySlug={activeTab} />
-        </div>
+        {/* Composition tab — shows FamilialVisual + supplements instead of items */}
+        {isCompositionTab ? (
+          <div className="pt-2">
+            <FamilialVisual
+              title={activeTabData?.compositionTitle}
+              size={activeTabData?.compositionSize}
+              subtitle={activeTabData?.compositionSubtitle}
+              combos={activeTabData?.compositionCombos}
+              choices={activeTabData?.compositionChoices}
+            />
 
-        {/* Familial Visual (Pizza only) */}
-        {activeTab === 'pizza' && (
-          <FamilialVisual
-            title={parentCategory.compositionTitle}
-            size={parentCategory.compositionSize}
-            subtitle={parentCategory.compositionSubtitle}
-            combos={parentCategory.compositionCombos}
-            choices={parentCategory.compositionChoices}
-          />
-        )}
+            {activeTabData?.supplements && activeTabData.supplements.length > 0 && (
+              <SupplementSection supplements={activeTabData.supplements} />
+            )}
+          </div>
+        ) : (
+          <>
+            {/* Items */}
+            <div className="pt-2">
+              <ItemList items={activeItems} categorySlug={activeTab} />
+            </div>
 
-        {/* Supplements for active tab */}
-        {activeTabData?.supplements && activeTabData.supplements.length > 0 && (
-          <SupplementSection supplements={activeTabData.supplements} />
+            {/* Supplements for active tab */}
+            {activeTabData?.supplements && activeTabData.supplements.length > 0 && (
+              <SupplementSection supplements={activeTabData.supplements} />
+            )}
+          </>
         )}
       </div>
     </div>
