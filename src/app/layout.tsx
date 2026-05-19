@@ -38,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="antialiased">
+    <html lang="fr" className="antialiased" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">
         <SmoothScroll>
           <FavoritesProvider>
