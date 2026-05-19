@@ -3,7 +3,7 @@ import { CategoryNav } from '@/components/navigation/CategoryNav';
 import { NoticeBar } from '@/components/navigation/NoticeBar';
 import { MenuNavWrapper } from '@/components/navigation/MenuNavWrapper';
 
-export const revalidate = 86400;
+export const revalidate = 3600;
 
 export default async function MenuLayout({ children }: { children: React.ReactNode }) {
   const [categories, siteSettings] = await Promise.all([

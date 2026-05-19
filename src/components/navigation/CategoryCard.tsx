@@ -15,7 +15,7 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
   return (
     <Link
       href={`/menu/${slug}`}
-      className="flex flex-col items-center gap-2 group w-[76px] flex-shrink-0"
+      className={`flex flex-col items-center gap-2 group w-[76px] flex-shrink-0 transition-transform duration-300 ${isActive ? 'scale-110' : 'hover:scale-105'}`}
     >
       <div
         className={`w-[76px] h-[76px] rounded-[4px] border-[3px] overflow-hidden relative flex items-center justify-center transition-all duration-200
@@ -32,7 +32,7 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
         ) : icon ? (
           <Icon
             name={icon}
-            className={`w-9 h-9 transition-all duration-300 ${icon === 'Heart' ? 'text-red-500' : 'text-deep-charcoal'} ${!isActive ? 'grayscale opacity-75 group-hover:grayscale-0 group-hover:opacity-100' : ''}`}
+            className={`w-9 h-9 transition-all duration-300 ${icon === 'Heart' ? 'text-red-500' : 'text-deep-charcoal'} ${!isActive ? 'opacity-75 group-hover:opacity-100' : ''}`}
           />
         ) : (
           <span className={`font-anton text-[36px] uppercase mt-2 leading-none text-deep-charcoal transition-all duration-300 ${!isActive ? 'opacity-75 group-hover:opacity-100' : ''}`}>

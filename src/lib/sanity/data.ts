@@ -33,7 +33,7 @@ export const getCategoryBySlug = cache(
 const _getCategoryBySlugCached = unstable_cache(
   async (slug: string) => client.fetch(GET_CATEGORY_BY_SLUG_QUERY, { slug }),
   ['category-by-slug'],
-  { revalidate: 86400, tags: ['category', 'supplement', 'supplementGroup'] }
+  { revalidate: 3600, tags: ['category', 'supplement', 'supplementGroup'] }
 );
 
 export const getMenuItemBySlug = cache(
@@ -43,7 +43,7 @@ export const getMenuItemBySlug = cache(
 const _getMenuItemBySlugCached = unstable_cache(
   async (slug: string) => client.fetch(GET_MENU_ITEM_BY_SLUG_QUERY, { slug }),
   ['menu-item-by-slug'],
-  { revalidate: 86400, tags: ['menuItem', 'category', 'supplement', 'supplementGroup'] }
+  { revalidate: 3600, tags: ['menuItem', 'category', 'supplement', 'supplementGroup'] }
 );
 
 // ─── Persistent cache via unstable_cache ───────────────────────────────
@@ -53,25 +53,25 @@ const _getMenuItemBySlugCached = unstable_cache(
 export const getCategories = unstable_cache(
   async () => client.fetch(GET_CATEGORIES_QUERY),
   ['categories'],
-  { revalidate: 86400, tags: ['category'] }
+  { revalidate: 3600, tags: ['category'] }
 );
 
 export const getSiteSettings = unstable_cache(
   async () => client.fetch(GET_SITE_SETTINGS_QUERY),
   ['site-settings'],
-  { revalidate: 86400, tags: ['siteSettings'] }
+  { revalidate: 3600, tags: ['siteSettings'] }
 );
 
 export const getChildCategories = unstable_cache(
   async (slug: string) => client.fetch(GET_CHILD_CATEGORIES_QUERY, { slug }),
   ['child-categories'],
-  { revalidate: 86400, tags: ['category'] }
+  { revalidate: 3600, tags: ['category'] }
 );
 
 export const getMenuItemsByCategory = unstable_cache(
   async (slug: string) => client.fetch(GET_MENU_ITEMS_BY_CATEGORY_QUERY, { slug }),
   ['menu-items-by-category'],
-  { revalidate: 86400, tags: ['menuItem', 'category'] }
+  { revalidate: 3600, tags: ['menuItem', 'category'] }
 );
 
 /**
@@ -86,5 +86,5 @@ export const getFullCategoryPage = cache(
 const _getFullCategoryPageCached = unstable_cache(
   async (slug: string) => client.fetch(GET_FULL_CATEGORY_PAGE_QUERY, { slug }),
   ['full-category-page'],
-  { revalidate: 86400, tags: ['category', 'menuItem', 'supplement', 'supplementGroup'] }
+  { revalidate: 3600, tags: ['category', 'menuItem', 'supplement', 'supplementGroup'] }
 );
