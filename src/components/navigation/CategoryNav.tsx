@@ -25,8 +25,8 @@ export function CategoryNav({ categories }: CategoryNavProps) {
   const activeCategorySlug = pathname.split('/menu/')[1]?.split('/')[0] || '';
 
   const navCategories = [
-    { _id: 'favorites', title: 'Favoris', slug: 'favoris', icon: 'Heart' },
     ...categories,
+    { _id: 'favorites', title: 'Favoris', slug: 'favoris', icon: 'Heart' },
   ];
 
   // First render: instant scroll before paint (no visible jump)

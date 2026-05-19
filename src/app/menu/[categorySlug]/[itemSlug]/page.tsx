@@ -62,8 +62,8 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
         </div>
       </div>
 
-      {/* Hero Image (Square) */}
-      <div className="w-full aspect-square relative border-b-[3px] border-deep-charcoal bg-vibrant-yellow -mt-[76px]">
+      {/* Hero Image (Square on mobile, capped height on desktop) */}
+      <div className="w-full aspect-square md:aspect-auto md:h-[60vh] relative border-b-[3px] border-deep-charcoal bg-vibrant-yellow -mt-[76px]">
         {item.imageUrl ? (
           <Image
             src={item.imageUrl}
