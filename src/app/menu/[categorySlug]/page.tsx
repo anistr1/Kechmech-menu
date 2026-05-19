@@ -8,7 +8,7 @@ import { ItemList } from '@/components/menu/ItemList';
 import { SupplementSection } from '@/components/menu/SupplementSection';
 import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /**
  * Pre-render all category pages at build time.
