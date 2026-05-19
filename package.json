@@ -23,6 +23,12 @@
     "sanity-plugin-media": "^4.3.0",
     "styled-components": "^6.4.1"
   },
+  "browserslist": [
+    "chrome 111",
+    "edge 111",
+    "firefox 111",
+    "safari 15"
+  ],
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

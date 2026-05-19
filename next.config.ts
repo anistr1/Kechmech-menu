@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Transpile packages that ship modern JS syntax (Safari 15 compat)
+  transpilePackages: ['lucide-react', 'next-sanity'],
+
   images: {
     loader: "custom",
     loaderFile: "./src/sanity/lib/imageLoader.ts",
