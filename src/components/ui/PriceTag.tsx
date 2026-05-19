@@ -7,7 +7,7 @@ interface PriceTagProps {
 }
 
 export function PriceTag({ price, size = 'md', className = '' }: PriceTagProps) {
-  const formattedPrice = price.toString().replace('.', ',');
+  const formattedPrice = price.toFixed(2).replace('.', ',');
   
   const sizeClasses = {
     sm: 'text-[15px] px-1.5 py-0.5',

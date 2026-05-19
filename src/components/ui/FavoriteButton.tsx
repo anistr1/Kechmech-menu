@@ -22,12 +22,16 @@ export function FavoriteButton({
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const favorite = isFavorite(slug);
   const handledRef = React.useRef(false);
+  const [isAnimating, setIsAnimating] = React.useState(false);
 
   const handleToggle = () => {
     // Double-fire guard: touchend fires before click on iOS
     if (handledRef.current) return;
     handledRef.current = true;
     setTimeout(() => { handledRef.current = false; }, 400);
+
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 300);
 
     if (favorite) {
       removeFavorite(slug);
@@ -70,7 +74,7 @@ export function FavoriteButton({
       aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
     >
       <Heart 
-        className={`transition-colors ${iconClassName} ${heartClasses}`} 
+        className={`transition-colors ${iconClassName} ${heartClasses} ${isAnimating ? 'animate-heart-pop' : ''}`} 
       />
     </button>
   );

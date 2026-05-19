@@ -92,7 +92,7 @@ export function FamilialVisual({
           <div key={index} className="flex-1 min-w-[140px] flex flex-col p-4 border-[3px] border-deep-charcoal bg-supplement-bg">
             <div className="flex justify-between items-start w-full mb-4">
               <span className={`font-anton text-4xl leading-none ${combo.count === 2 ? 'text-primary' : 'text-price-green'}`}>{combo.count}</span>
-              <span className="font-anton text-xl text-deep-charcoal">{combo.price} DT</span>
+              <span className="font-anton text-xl text-deep-charcoal">{combo.price.toFixed(2).replace('.', ',')} DT</span>
             </div>
             <span className="font-libre-franklin font-bold text-[14px] text-deep-charcoal uppercase tracking-widest mb-4">Combinaisons</span>
             <div className="self-center mt-auto scale-[0.6] origin-top h-16">

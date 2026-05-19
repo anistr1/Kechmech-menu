@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import { GET_ALL_ITEM_SLUGS_QUERY } from '@/lib/sanity/queries';
 import { getMenuItemBySlug } from '@/lib/sanity/data';
@@ -55,11 +54,8 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
     <main className="min-h-screen bg-surface">
       {/* Sticky Header with Back Button */}
       <div className="sticky top-0 z-40 w-full px-5 py-4 flex justify-between items-center pointer-events-none">
-        <div className="pointer-events-auto flex items-center gap-2">
+        <div className="pointer-events-auto">
           <BackButton />
-          <Link href="/menu" className="flex items-center justify-center bg-white text-deep-charcoal border-2 border-deep-charcoal rounded-full px-4 min-h-[44px] hover:bg-deep-charcoal hover:text-white transition-colors active:scale-95" aria-label="Voir le menu">
-            <span className="font-anton text-[18px] leading-none mt-1 uppercase">Menu</span>
-          </Link>
         </div>
         <div className="pointer-events-auto">
           <FavoriteButton slug={itemSlug} categorySlug={categorySlug} />
