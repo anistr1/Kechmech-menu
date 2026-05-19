@@ -75,7 +75,20 @@ export async function POST(req: NextRequest) {
     // invalidate the route tree as well.
     revalidatePath('/menu', 'layout');
 
-    console.log(`[revalidate] Purged tag "${type}"${cascades ? ` + cascades: ${cascades.join(', ')}` : ''} + route cache`);
+    // Warm the cache: In ISR, revalidatePath only MARKS the route as
+    // stale. The first real visitor would still get old HTML while
+    // Next.js rebuilds in the background ("stale-while-revalidate").
+    // By fetching /menu ourselves, we force the rebuild to happen NOW
+    // so the next real visitor sees fresh content immediately.
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kechmech.tn';
+    try {
+      await fetch(`${baseUrl}/menu`, { cache: 'no-store' });
+    } catch (e) {
+      // Non-critical: if warming fails, the next visitor triggers rebuild
+      console.warn('[revalidate] Cache warming failed:', e);
+    }
+
+    console.log(`[revalidate] Purged tag "${type}"${cascades ? ` + cascades: ${cascades.join(', ')}` : ''} + route cache warmed`);
 
     return Response.json({
       revalidated: true,
