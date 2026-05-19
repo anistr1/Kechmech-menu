@@ -145,6 +145,11 @@ export function SubCategoryTabs({
                 aria-controls={panelId(tab.slug)}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTab(tab.slug)}
+                onTouchEnd={(e) => {
+                  // iOS Safari 15.x workaround: click events can be swallowed
+                  e.preventDefault();
+                  setActiveTab(tab.slug);
+                }}
                 onKeyDown={(e) => handleTabKeyDown(e, index)}
                 className={`
                   flex-1 py-4 px-2 font-anton text-[22px] uppercase tracking-wider text-center leading-none

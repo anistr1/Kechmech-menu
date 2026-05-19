@@ -21,16 +21,33 @@ export function FavoriteButton({
 }: FavoriteButtonProps) {
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const favorite = isFavorite(slug);
+  const handledRef = React.useRef(false);
 
-  const handleClick = (e: React.MouseEvent) => {
-    // Stop the click from reaching any parent Link
-    e.preventDefault();
-    e.stopPropagation();
+  const handleToggle = () => {
+    // Double-fire guard: touchend fires before click on iOS
+    if (handledRef.current) return;
+    handledRef.current = true;
+    setTimeout(() => { handledRef.current = false; }, 400);
+
     if (favorite) {
       removeFavorite(slug);
     } else {
       addFavorite({ slug, categorySlug });
     }
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    // Stop the click from reaching any parent Link
+    e.preventDefault();
+    e.stopPropagation();
+    handleToggle();
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    // iOS Safari 15.x workaround: click events can be swallowed
+    e.preventDefault();
+    e.stopPropagation();
+    handleToggle();
   };
 
   const baseClasses = "rounded-full flex items-center justify-center transition-colors min-w-[44px] min-h-[44px]";
@@ -48,6 +65,7 @@ export function FavoriteButton({
     <button 
       type="button"
       onClick={handleClick}
+      onTouchEnd={handleTouchEnd}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}
     >

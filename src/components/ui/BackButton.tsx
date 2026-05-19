@@ -23,6 +23,7 @@ interface BackButtonProps {
 export function BackButton({ label = 'RETOUR', fallbackHref }: BackButtonProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const handledRef = React.useRef(false);
 
   // Derive a sensible fallback: for /menu/cat/item → /menu/cat, else /menu
   const derivedFallback =
@@ -35,6 +36,11 @@ export function BackButton({ label = 'RETOUR', fallbackHref }: BackButtonProps) 
     })();
 
   const handleBack = () => {
+    // Double-fire guard: touchend fires before click on iOS
+    if (handledRef.current) return;
+    handledRef.current = true;
+    setTimeout(() => { handledRef.current = false; }, 400);
+
     const referrer = typeof document !== 'undefined' ? document.referrer : '';
     const isInternalReferrer =
       referrer.length > 0 && referrer.startsWith(window.location.origin);
@@ -50,6 +56,12 @@ export function BackButton({ label = 'RETOUR', fallbackHref }: BackButtonProps) 
     <button
       type="button"
       onClick={handleBack}
+      onTouchEnd={(e) => {
+        // iOS Safari 15.x workaround: click events can be swallowed
+        // on elements inside pointer-events-none/auto containers with transitions
+        e.preventDefault();
+        handleBack();
+      }}
       className="flex items-center gap-2 bg-white text-deep-charcoal border-2 border-deep-charcoal rounded-full px-5 py-2 hover:bg-deep-charcoal hover:text-white transition-colors active:scale-95 min-h-[44px]"
       aria-label="Retour à la page précédente"
     >

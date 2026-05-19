@@ -71,40 +71,41 @@ body {
   display: none;
 }
 
-/* Global visible scrollbars (vertical and horizontal) to make scrolling obvious and on-brand */
-html:not(:has(#sanity-studio-root)) {
+/*
+ * Global visible scrollbars — on-brand styling.
+ *
+ * Previously used :has(#sanity-studio-root) to exclude Sanity Studio,
+ * but :has() inside :not() breaks Safari 15.x (iPhone 7) and causes
+ * cascading CSS parse failures that silently disable downstream rules.
+ * Using simple body selectors instead — the Studio has its own scoped styles.
+ */
+body {
   scrollbar-width: auto;
   scrollbar-color: var(--color-vibrant-yellow) var(--color-surface);
 }
 
-html:not(:has(#sanity-studio-root))::-webkit-scrollbar,
-html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 14px;
   height: 14px;
 }
 
-html:not(:has(#sanity-studio-root))::-webkit-scrollbar-track,
-html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   background: var(--color-surface);
   border-left: 3px solid var(--color-deep-charcoal);
 }
 
-/* Horizontal track specific style */
-html:not(:has(#sanity-studio-root))::-webkit-scrollbar-track:horizontal,
-html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-track:horizontal {
+body::-webkit-scrollbar-track:horizontal {
   border-left: none;
   border-top: 3px solid var(--color-deep-charcoal);
 }
 
-html:not(:has(#sanity-studio-root))::-webkit-scrollbar-thumb,
-html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background-color: var(--color-vibrant-yellow);
   border: 3px solid var(--color-deep-charcoal);
   border-radius: 4px;
 }
 
-html:not(:has(#sanity-studio-root))::-webkit-scrollbar-thumb:hover,
-html:not(:has(#sanity-studio-root)) ::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-primary);
 }
 
