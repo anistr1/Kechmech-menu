@@ -31,11 +31,11 @@ export const metadata: Metadata = {
     template: "%s | Kechmech",
   },
   description:
-    "Découvrez le menu de Kechmech : baguettes farcies, pizzas, tacos, burgers et plus encore. Street food 100% tunisien.",
+    "Explorez la carte complète de votre restaurant préféré Kechmech. Choisissez parmi nos savoureuses baguettes farcies, nos pizzas fraîches, nos burgers et nos tacos.",
   openGraph: {
     title: "Kechmech — Menu Digital",
     description:
-      "Street food 100% tunisien. Parcourez notre menu digital.",
+      "Votre restaurant préféré Kechmech : explorez notre menu digital.",
     siteName: "Kechmech",
     locale: "fr_TN",
     type: "website",
