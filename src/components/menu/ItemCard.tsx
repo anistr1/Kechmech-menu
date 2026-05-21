@@ -17,6 +17,7 @@ interface ItemCardProps {
   imageUrl?: string;
   isNew?: boolean;
   isPopular?: boolean;
+  isUnavailable?: boolean;
 }
 
 /**
@@ -29,7 +30,7 @@ interface ItemCardProps {
  * This is the industry-standard way to have independent interactive
  * elements inside a clickable card, and works on all iOS Safari versions.
  */
-export function ItemCard({ name, slug, categorySlug, price, description, imageUrl, isNew, isPopular }: ItemCardProps) {
+export function ItemCard({ name, slug, categorySlug, price, description, imageUrl, isNew, isPopular, isUnavailable }: ItemCardProps) {
   const [isNavigating, setIsNavigating] = useState(false);
 
   const handleCardClick = () => {
@@ -38,15 +39,17 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
   };
 
   return (
-    <article className={`group relative flex flex-col w-full bg-white border-[3px] border-deep-charcoal rounded-[4px] active:scale-[0.98] transition-all duration-200 ${isNavigating ? 'pointer-events-none' : ''}`}>
-      {/* Invisible link overlay — makes the entire card clickable */}
-      <Link
-        href={`/menu/${categorySlug}/${slug}`}
-        prefetch={false}
-        onClick={handleCardClick}
-        className="absolute inset-0 z-[1] rounded-[1px]"
-        aria-label={`Voir ${name}`}
-      />
+    <article className={`group relative flex flex-col w-full bg-white border-[3px] border-deep-charcoal rounded-[4px] transition-all duration-200 ${isNavigating ? 'pointer-events-none' : ''} ${!isUnavailable ? 'active:scale-[0.98]' : 'opacity-80'}`}>
+      {/* Invisible link overlay — makes the entire card clickable, unless unavailable */}
+      {!isUnavailable && (
+        <Link
+          href={`/menu/${categorySlug}/${slug}`}
+          prefetch={false}
+          onClick={handleCardClick}
+          className="absolute inset-0 z-[1] rounded-[1px]"
+          aria-label={`Voir ${name}`}
+        />
+      )}
 
       {/* Loading Overlay */}
       {isNavigating && (
@@ -64,11 +67,19 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
       )}
 
       {/* Image Container */}
-      <div className="w-full aspect-square rounded-t-[1px] border-b-[3px] border-deep-charcoal relative flex-shrink-0 bg-vibrant-yellow flex items-center justify-center transition-colors duration-200 overflow-hidden">
+      <div className={`w-full aspect-square rounded-t-[1px] border-b-[3px] border-deep-charcoal relative flex-shrink-0 bg-vibrant-yellow flex items-center justify-center transition-colors duration-200 overflow-hidden ${isUnavailable ? 'grayscale opacity-70' : ''}`}>
         {imageUrl ? (
           <Image src={imageUrl} alt={name} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover" />
         ) : (
           <span className="font-anton text-deep-charcoal text-[48px] uppercase leading-none mt-2">{name.charAt(0)}</span>
+        )}
+        
+        {isUnavailable && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/20 backdrop-blur-[1px]">
+             <div className="bg-white text-deep-charcoal border-[2px] border-deep-charcoal font-anton uppercase px-3 py-1.5 md:px-4 md:py-2 text-[13px] md:text-[15px] -rotate-[10deg] shadow-[3px_3px_0px_rgba(33,37,41,1)] whitespace-nowrap">
+               Non dispo
+             </div>
+          </div>
         )}
       </div>
 
@@ -88,13 +99,15 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
         {/* Price + Favorite — ABOVE the link overlay (z-[5] > z-[1]) */}
         <div className="flex items-center justify-between gap-1 pt-1 mt-auto relative z-[5]">
           <PriceTag price={price} size="sm" />
-          <FavoriteButton
-            slug={slug}
-            categorySlug={categorySlug}
-            variant="ghost"
-            className="-mr-1 flex-shrink-0"
-            iconClassName="w-5 h-5"
-          />
+          {!isUnavailable && (
+            <FavoriteButton
+              slug={slug}
+              categorySlug={categorySlug}
+              variant="ghost"
+              className="-mr-1 flex-shrink-0"
+              iconClassName="w-5 h-5"
+            />
+          )}
         </div>
       </div>
     </article>

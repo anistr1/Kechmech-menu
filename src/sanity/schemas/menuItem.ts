@@ -24,6 +24,7 @@ export default defineType({
     }),
     defineField({ name: 'isPopular', type: 'boolean', title: 'Populaire' }),
     defineField({ name: 'isNew', type: 'boolean', title: 'Nouveau' }),
+    defineField({ name: 'isUnavailable', type: 'boolean', title: 'Non disponible (Rupture de stock)' }),
     orderRankField({ type: 'menuItem', newItemPosition: 'after' }),
   ]
 })

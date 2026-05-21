@@ -68,7 +68,8 @@ export const GET_MENU_ITEMS_BY_CATEGORY_QUERY = defineQuery(`
     description,
     "imageUrl": image.asset->url,
     isPopular,
-    isNew
+    isNew,
+    isUnavailable
   }
 `)
 
@@ -95,6 +96,7 @@ export const GET_MENU_ITEM_BY_SLUG_QUERY = defineQuery(`
     "imageUrl": image.asset->url,
     isPopular,
     isNew,
+    isUnavailable,
     "category": category->{
       _id,
       title,
@@ -142,7 +144,8 @@ export const GET_FULL_CATEGORY_PAGE_QUERY = defineQuery(`
       description,
       "imageUrl": image.asset->url,
       isPopular,
-      isNew
+      isNew,
+      isUnavailable
     },
     "childCategories": *[_type == "category" && parentCategory._ref == ^._id] | order(orderRank) {
       _id,
@@ -168,7 +171,8 @@ export const GET_FULL_CATEGORY_PAGE_QUERY = defineQuery(`
         description,
         "imageUrl": image.asset->url,
         isPopular,
-        isNew
+        isNew,
+        isUnavailable
       }
     }
   }

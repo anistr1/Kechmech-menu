@@ -14,6 +14,7 @@ interface FavoriteMenuItem {
   imageUrl?: string;
   isNew?: boolean;
   isPopular?: boolean;
+  isUnavailable?: boolean;
 }
 
 /**
@@ -49,7 +50,8 @@ export async function POST(request: NextRequest) {
         description,
         "imageUrl": image.asset->url,
         isNew,
-        isPopular
+        isPopular,
+        isUnavailable
       }`,
       { slugs: safeSlugs }
     );

@@ -15,6 +15,7 @@ interface FavoriteMenuItem {
   imageUrl?: string;
   isNew?: boolean;
   isPopular?: boolean;
+  isUnavailable?: boolean;
 }
 
 export default function FavorisPage() {
@@ -90,6 +91,7 @@ export default function FavorisPage() {
               imageUrl={item.imageUrl}
               isNew={item.isNew}
               isPopular={item.isPopular}
+              isUnavailable={item.isUnavailable}
             />
           ))
         ) : (

@@ -10,6 +10,7 @@ interface MenuItem {
   imageUrl?: string;
   isNew?: boolean;
   isPopular?: boolean;
+  isUnavailable?: boolean;
 }
 
 interface ItemListProps {
@@ -31,6 +32,7 @@ export function ItemList({ items, categorySlug }: ItemListProps) {
           imageUrl={item.imageUrl}
           isNew={item.isNew}
           isPopular={item.isPopular}
+          isUnavailable={item.isUnavailable}
         />
       ))}
     </div>
