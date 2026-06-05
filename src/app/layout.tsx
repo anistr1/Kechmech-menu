@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Anton, Libre_Franklin, Caveat } from "next/font/google";
 import "./globals.css";
 import { FavoritesProvider } from "@/components/FavoritesProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 // Self-host fonts via Next.js — eliminates render-blocking network request
 const anton = Anton({
@@ -68,6 +69,7 @@ export default function RootLayout({
         <FavoritesProvider>
           {children}
         </FavoritesProvider>
+        <Analytics />
       </body>
     </html>
   );
