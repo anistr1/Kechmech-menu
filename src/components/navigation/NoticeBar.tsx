@@ -17,11 +17,11 @@ export function NoticeBar({
   return (
     <div className="w-full bg-deep-charcoal text-vibrant-yellow px-5 py-0 flex items-center justify-between z-50 relative">
       {/* Home and Favoris Buttons */}
-      <div className="flex items-center gap-1 sm:gap-4">
+      <div className="flex items-center gap-4">
         <Link 
           href="/menu"
           prefetch={false}
-          className="text-vibrant-yellow hover:text-white transition-colors min-h-[44px] px-2 flex items-center justify-center gap-2"
+          className="text-vibrant-yellow hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center gap-2"
           aria-label="Retour à l'accueil"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -33,7 +33,7 @@ export function NoticeBar({
         <Link 
           href="/menu/favoris"
           prefetch={false}
-          className="text-favorite-active hover:text-red-400 transition-colors min-h-[44px] px-2 flex items-center justify-center gap-2"
+          className="text-favorite-active hover:text-red-400 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center gap-2"
           aria-label="Favoris"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true">
@@ -56,7 +56,7 @@ export function NoticeBar({
       </div>
 
       {/* Social Media Links */}
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-4">
         {instagramUrl && (
           <a
             href={instagramUrl}
