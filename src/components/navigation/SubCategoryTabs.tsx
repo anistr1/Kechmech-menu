@@ -58,6 +58,11 @@ export function SubCategoryTabs({
 
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  // Scroll-detection: same guard used in FavoriteButton.
+  // One slot per tab so concurrent touches on different tabs don't interfere.
+  const touchStartRef = useRef<({ x: number; y: number } | null)[]>([]);
+  const MOVE_THRESHOLD = 10; // px — anything beyond this is a scroll
+
   // Build tab list: parent first (if it has its own items), then children
   const parentHasItems = (itemsBySubCategory[parentCategory.slug] ?? []).length > 0;
 
@@ -159,8 +164,23 @@ export function SubCategoryTabs({
                 aria-controls={panelId(tab.slug)}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => setActiveTab(tab.slug)}
+                onTouchStart={(e) => {
+                  const touch = e.touches[0];
+                  touchStartRef.current[index] = { x: touch.clientX, y: touch.clientY };
+                }}
                 onTouchEnd={(e) => {
-                  // iOS Safari 15.x workaround: click events can be swallowed
+                  // iOS Safari 15.x workaround: click events can be swallowed.
+                  // But only fire if the finger didn't scroll — same guard as FavoriteButton.
+                  const start = touchStartRef.current[index];
+                  if (start && e.changedTouches.length > 0) {
+                    const touch = e.changedTouches[0];
+                    const dx = Math.abs(touch.clientX - start.x);
+                    const dy = Math.abs(touch.clientY - start.y);
+                    touchStartRef.current[index] = null;
+                    if (dx > MOVE_THRESHOLD || dy > MOVE_THRESHOLD) return; // scroll — bail out
+                  } else {
+                    touchStartRef.current[index] = null;
+                  }
                   e.preventDefault();
                   setActiveTab(tab.slug);
                 }}
