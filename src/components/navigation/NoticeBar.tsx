@@ -15,13 +15,13 @@ export function NoticeBar({
   tiktokUrl = 'https://www.tiktok.com/@kechmech.tn'
 }: NoticeBarProps) {
   return (
-    <div className="w-full bg-deep-charcoal text-vibrant-yellow px-5 py-0 flex items-center justify-between z-50 relative">
+    <div className="w-full bg-deep-charcoal px-5 py-0 flex items-center justify-between z-50 relative">
       {/* Home and Favoris Buttons */}
       <div className="flex items-center gap-4">
         <Link 
           href="/menu"
           prefetch={false}
-          className="text-vibrant-yellow hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center gap-2"
+          className="text-gray-300 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center gap-2"
           aria-label="Retour à l'accueil"
         >
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -44,7 +44,7 @@ export function NoticeBar({
       </div>
 
       {/* Marquee Text */}
-      <div className="flex-1 overflow-hidden relative mx-4 flex items-center h-full">
+      <div className="flex-1 overflow-hidden relative mx-4 flex items-center h-full text-vibrant-yellow">
         <div className="flex animate-marquee whitespace-nowrap w-max will-change-transform">
           <span className="pr-8 font-libre-franklin text-[13px] tracking-widest uppercase font-semibold">
             {marqueeText}
@@ -63,7 +63,7 @@ export function NoticeBar({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            className="hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="text-gray-300 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -78,7 +78,7 @@ export function NoticeBar({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
-            className="hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="text-gray-300 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -91,7 +91,7 @@ export function NoticeBar({
             target="_blank"
             rel="noopener noreferrer"
             aria-label="TikTok"
-            className="hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="text-gray-300 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
