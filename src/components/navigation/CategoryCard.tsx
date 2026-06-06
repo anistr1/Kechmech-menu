@@ -17,7 +17,6 @@ export function CategoryCard({ title, slug, imageUrl, isActive, icon }: Category
   return (
     <Link
       href={`/menu/${slug}`}
-      prefetch={false}
       className="flex flex-col items-center gap-2 group w-[92px] flex-shrink-0"
     >
       <div
