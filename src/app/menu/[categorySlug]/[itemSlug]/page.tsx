@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/Badge';
 import { SupplementSection } from '@/components/menu/SupplementSection';
 
 import { FavoriteButton } from '@/components/ui/FavoriteButton';
+import { WaiterPrompt } from '@/components/ui/WaiterPrompt';
+import { RecentlyViewedProvider } from '@/components/ui/RecentlyViewedProvider';
 
 export const revalidate = 3600;
 
@@ -92,7 +94,11 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
           <PriceTag price={item.price} size="lg" />
           {(item.isPopular || item.isNew) && (
             <div className="flex gap-2">
-              {item.isPopular && <Badge type="popular" />}
+              {item.isPopular && (
+                <span className="inline-flex items-center justify-center font-libre-franklin font-bold text-[14px] px-2.5 py-1 rounded-full leading-none border-[2px] bg-tertiary text-white border-tertiary gap-1 select-none">
+                  ⭐ Le plus commandé
+                </span>
+              )}
               {item.isNew && <Badge type="new" />}
             </div>
           )}
@@ -111,6 +117,17 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
           <SupplementSection supplements={item.supplements} />
         )}
       </div>
+
+      {/* Waiter Prompt */}
+      <WaiterPrompt />
+      
+      <RecentlyViewedProvider item={{
+        slug: item.slug,
+        categorySlug,
+        name: item.name,
+        price: item.price,
+        imageUrl: item.imageUrl
+      }} />
     </main>
   );
 }

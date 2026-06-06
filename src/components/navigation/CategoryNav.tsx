@@ -24,11 +24,6 @@ export function CategoryNav({ categories }: CategoryNavProps) {
   // Extract active slug from pathname: /menu/pizza → pizza, /menu/favoris → favoris
   const activeCategorySlug = pathname.split('/menu/')[1]?.split('/')[0] || '';
 
-  const navCategories = [
-    ...categories,
-    { _id: 'favorites', title: 'Favoris', slug: 'favoris', icon: 'Heart' },
-  ];
-
   // First render: instant scroll before paint (no visible jump)
   useLayoutEffect(() => {
     if (isFirstRender.current && activeRef.current) {
@@ -57,8 +52,8 @@ export function CategoryNav({ categories }: CategoryNavProps) {
 
   return (
     <nav className="w-full bg-surface border-b-[3px] border-deep-charcoal sticky top-0 z-40 py-4 relative">
-      <div className="flex overflow-x-auto px-5 pt-1 pb-3 gap-5 items-start relative z-10">
-        {navCategories.map((cat) => {
+      <div className="flex overflow-x-auto px-5 pt-1 pb-3 gap-5 items-start relative z-10 hide-scrollbar">
+        {categories.map((cat) => {
           const isActive = cat.slug === activeCategorySlug;
           return (
             <div key={cat._id} ref={isActive ? activeRef : undefined} className="flex-shrink-0">

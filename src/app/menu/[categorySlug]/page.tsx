@@ -7,6 +7,7 @@ import { CategoryHeader } from '@/components/menu/CategoryHeader';
 import { ItemList } from '@/components/menu/ItemList';
 import { SupplementSection } from '@/components/menu/SupplementSection';
 import { SubCategoryTabs } from '@/components/navigation/SubCategoryTabs';
+import { RecentlyViewed } from '@/components/ui/RecentlyViewed';
 
 export const revalidate = 3600;
 
@@ -57,20 +58,23 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   if (hasSubCategories) {
     // Build a map: slug → items[] from the consolidated response
     const itemsBySubCategory: Record<string, typeof data.items> = {};
+    let totalItems = 0;
 
     // Parent's own items (if any)
     if (data.items && data.items.length > 0) {
       itemsBySubCategory[data.slug] = data.items;
+      totalItems += data.items.length;
     }
 
     // Each child's items
     for (const child of data.childCategories) {
       itemsBySubCategory[child.slug] = child.items || [];
+      totalItems += (child.items || []).length;
     }
 
     return (
       <main className="min-h-screen bg-surface pb-12">
-        <CategoryHeader title={data.title} />
+        <CategoryHeader title={data.title} itemCount={totalItems} />
 
         <SubCategoryTabs
           parentCategory={{
@@ -83,15 +87,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           subCategories={data.childCategories}
           itemsBySubCategory={itemsBySubCategory}
         />
+
+        <RecentlyViewed />
       </main>
     );
   }
 
   // No sub-categories — original behavior
+  const totalItems = data.items ? data.items.length : 0;
+
   return (
     <main className="min-h-screen bg-surface pb-12">
       <CategoryHeader
         title={data.title}
+        itemCount={totalItems}
         baseDescription={data.baseDescription}
       />
 
@@ -100,6 +109,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       {data.supplements && data.supplements.length > 0 && (
         <SupplementSection supplements={data.supplements} />
       )}
+
+      <RecentlyViewed />
     </main>
   );
 }

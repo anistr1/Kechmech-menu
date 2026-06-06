@@ -9,7 +9,8 @@ export const GET_CATEGORIES_QUERY = defineQuery(`
     icon,
     "imageUrl": image.asset->url,
     baseDescription,
-    isSpecial
+    isSpecial,
+    "itemCount": count(*[_type == "menuItem" && category._ref == ^._id && isUnavailable != true])
   }
 `)
 
@@ -126,6 +127,7 @@ export const GET_FULL_CATEGORY_PAGE_QUERY = defineQuery(`
     tabLabel,
     isSpecial,
     "parentSlug": parentCategory->slug.current,
+    "itemCount": count(*[_type == "menuItem" && category._ref == ^._id && isUnavailable != true]),
     "supplements": supplementGroup->supplements[]->{
       _id,
       name,

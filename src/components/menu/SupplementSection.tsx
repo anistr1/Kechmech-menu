@@ -20,9 +20,14 @@ export function SupplementSection({ title = 'Suppléments', supplements }: Suppl
 
         {/* Header Block */}
         <div className="bg-vibrant-yellow border-b-[3px] border-deep-charcoal px-4 py-3 flex items-center justify-between">
-          <h3 className="font-anton text-[26px] text-deep-charcoal uppercase leading-none tracking-wide pt-1">
-            {title}
-          </h3>
+          <div className="flex flex-col">
+            <h3 className="font-anton text-[26px] text-deep-charcoal uppercase leading-none tracking-wide pt-1">
+              {title}
+            </h3>
+            <p className="font-libre-franklin text-[13px] text-deep-charcoal/80 mt-0.5 leading-none">
+              Demandez à votre serveur
+            </p>
+          </div>
           <span className="bg-white text-deep-charcoal font-bold font-libre-franklin text-[14px] uppercase tracking-wider px-2 py-0.5 rounded-[4px] border-[2px] border-deep-charcoal">
             Optionnel
           </span>

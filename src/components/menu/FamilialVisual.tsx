@@ -80,7 +80,7 @@ export function FamilialVisual({
         <h3 className="font-libre-franklin text-[16px] font-bold text-deep-charcoal uppercase tracking-widest mb-4">Choix Disponibles</h3>
         <div className="flex flex-wrap gap-x-4 gap-y-2">
           {activeChoices.map((choice) => (
-            <span key={choice} className="font-libre-franklin font-bold text-[16px] text-deep-charcoal underline decoration-2 decoration-vibrant-yellow underline-offset-4 hover:bg-vibrant-yellow transition-colors">
+            <span key={choice} className="font-libre-franklin font-bold text-[16px] text-deep-charcoal before:content-['–'] before:mr-2 before:text-vibrant-yellow">
               {choice}
             </span>
           ))}
@@ -89,7 +89,7 @@ export function FamilialVisual({
 
       <div className="flex w-full gap-4 items-stretch flex-wrap">
         {activeCombos.map((combo, index) => (
-          <div key={index} className="flex-1 min-w-[140px] flex flex-col p-4 border-[3px] border-deep-charcoal bg-supplement-bg">
+          <div key={index} className="flex-1 min-w-[140px] flex flex-col p-4 border-[3px] border-deep-charcoal bg-supplement-bg pointer-events-none select-none">
             <div className="flex justify-between items-start w-full mb-4">
               <span className={`font-anton text-4xl leading-none ${combo.count === 2 ? 'text-primary' : 'text-price-green'}`}>{combo.count}</span>
               <span className="font-anton text-xl text-deep-charcoal">{combo.price.toFixed(2).replace('.', ',')} DT</span>
