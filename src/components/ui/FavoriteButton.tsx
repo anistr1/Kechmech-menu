@@ -24,6 +24,11 @@ export function FavoriteButton({
   const handledRef = React.useRef(false);
   const [isAnimating, setIsAnimating] = React.useState(false);
 
+  // Scroll-velocity gating: track where the finger started so we can
+  // distinguish a deliberate tap from an accidental scroll-graze.
+  const touchStartRef = React.useRef<{ x: number; y: number } | null>(null);
+  const MOVE_THRESHOLD = 10; // px — anything beyond this is a scroll
+
   const handleToggle = () => {
     // Double-fire guard: touchend fires before click on iOS
     if (handledRef.current) return;
@@ -47,10 +52,26 @@ export function FavoriteButton({
     handleToggle();
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
   const handleTouchEnd = (e: React.TouchEvent) => {
-    // iOS Safari 15.x workaround: click events can be swallowed
     e.preventDefault();
     e.stopPropagation();
+
+    // If the finger moved more than the threshold, the user was scrolling — bail out.
+    if (touchStartRef.current && e.changedTouches.length > 0) {
+      const touch = e.changedTouches[0];
+      const dx = Math.abs(touch.clientX - touchStartRef.current.x);
+      const dy = Math.abs(touch.clientY - touchStartRef.current.y);
+      if (dx > MOVE_THRESHOLD || dy > MOVE_THRESHOLD) {
+        touchStartRef.current = null;
+        return; // scroll detected — don't toggle
+      }
+    }
+    touchStartRef.current = null;
     handleToggle();
   };
 
@@ -69,6 +90,7 @@ export function FavoriteButton({
     <button 
       type="button"
       onClick={handleClick}
+      onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       aria-label={favorite ? "Retirer des favoris" : "Ajouter aux favoris"}

@@ -114,7 +114,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
     <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
       {children}
       {toastMessage && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-deep-charcoal text-vibrant-yellow border-[3px] border-vibrant-yellow font-libre-franklin font-bold px-6 py-3 rounded-full z-[100] animate-slide-up-fade text-[14px] uppercase tracking-wide">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-deep-charcoal text-vibrant-yellow border-[3px] border-vibrant-yellow font-libre-franklin font-bold px-4 py-3 rounded-full z-[100] animate-slide-up-fade text-[14px] uppercase tracking-wide whitespace-nowrap">
           {toastMessage}
         </div>
       )}
