@@ -44,7 +44,6 @@ export function ItemCard({ name, slug, categorySlug, price, description, imageUr
       {!isUnavailable && (
         <Link
           href={`/menu/${categorySlug}/${slug}`}
-          prefetch={false}
           onClick={handleCardClick}
           className="absolute inset-0 z-[1] rounded-[1px]"
           aria-label={`Voir ${name}`}

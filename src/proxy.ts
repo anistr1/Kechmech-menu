@@ -77,13 +77,9 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  // --- Rate-limit dynamic menu pages (prevents Sanity cache-miss flooding) ---
-  if (pathname.startsWith('/menu/') && pathname !== '/menu/favoris') {
-    const key = `page:${ip}`;
-    if (isRateLimited(key, MAX_REQUESTS_PAGES)) {
-      return new NextResponse('Too Many Requests', { status: 429 });
-    }
-  }
+  // Menu pages are statically generated (generateStaticParams) and served from cache.
+  // We no longer rate-limit them because doing so blocks Next.js prefetch requests
+  // which are essential for instant navigation.
 
   return NextResponse.next();
 }

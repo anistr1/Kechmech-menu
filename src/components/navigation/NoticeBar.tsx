@@ -20,7 +20,6 @@ export function NoticeBar({
       <div className="flex items-center gap-4">
         <Link 
           href="/menu"
-          prefetch={false}
           className="text-gray-300 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center gap-2"
           aria-label="Retour à l'accueil"
         >
@@ -32,7 +31,6 @@ export function NoticeBar({
         </Link>
         <Link 
           href="/menu/favoris"
-          prefetch={false}
           className="text-favorite-active hover:text-red-400 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center gap-2"
           aria-label="Favoris"
         >
