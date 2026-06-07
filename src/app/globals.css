@@ -164,6 +164,11 @@ body::-webkit-scrollbar-thumb:hover {
   to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes slide-down {
   from { transform: translateY(-100%); }
   to { transform: translateY(0); }
@@ -181,6 +186,11 @@ body::-webkit-scrollbar-thumb:hover {
 
 .animate-scale-fade {
   animation: scale-fade 800ms var(--ease-out-expo) forwards;
+  opacity: 0;
+}
+
+.animate-page-enter {
+  animation: page-enter 300ms var(--ease-out-expo) forwards;
   opacity: 0;
 }
 
