@@ -55,7 +55,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
   return (
     <main className="min-h-screen bg-surface">
       {/* Sticky Header with Back Button */}
-      <div className="sticky top-0 z-40 w-full px-5 py-4 flex justify-between items-center pointer-events-none">
+      <div className="sticky top-0 z-40 w-full px-5 py-4 flex justify-between items-center pointer-events-none animate-page-enter">
         <div className="pointer-events-auto">
           <BackButton />
         </div>
@@ -65,7 +65,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
       </div>
 
       {/* Hero Image (Square on mobile, capped height on desktop) */}
-      <div className="w-full aspect-square md:aspect-auto md:h-[60vh] relative border-b-[3px] border-deep-charcoal bg-vibrant-yellow -mt-[76px]">
+      <div className="w-full aspect-square md:aspect-auto md:h-[60vh] relative border-b-[3px] border-deep-charcoal bg-vibrant-yellow -mt-[76px] animate-scale-fade">
         {item.imageUrl ? (
           <Image
             src={item.imageUrl}
@@ -86,11 +86,17 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
 
       {/* Content Section */}
       <div className="px-5 pt-6 pb-2 flex flex-col gap-3">
-        <h1 className="font-anton text-[32px] leading-[36px] text-deep-charcoal uppercase tracking-wide">
+        <h1 
+          className="font-anton text-[32px] leading-[36px] text-deep-charcoal uppercase tracking-wide animate-slide-up-fade"
+          style={{ animationDelay: '100ms' }}
+        >
           {item.name}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div 
+          className="flex flex-wrap items-center gap-3 animate-slide-up-fade"
+          style={{ animationDelay: '150ms' }}
+        >
           <PriceTag price={item.price} size="lg" />
           {(item.isPopular || item.isNew) && (
             <div className="flex gap-2">
@@ -105,14 +111,17 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ cat
         </div>
 
         {item.description && (
-          <p className="font-libre-franklin text-[18px] leading-relaxed text-on-surface-variant mt-2">
+          <p 
+            className="font-libre-franklin text-[18px] leading-relaxed text-on-surface-variant mt-2 animate-slide-up-fade"
+            style={{ animationDelay: '200ms' }}
+          >
             {item.description}
           </p>
         )}
       </div>
 
       {/* Supplements */}
-      <div>
+      <div className="animate-slide-up-fade" style={{ animationDelay: '250ms' }}>
         {item.supplements && item.supplements.length > 0 && (
           <SupplementSection supplements={item.supplements} />
         )}
