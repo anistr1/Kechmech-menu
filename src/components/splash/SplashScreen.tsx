@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 interface SplashScreenProps {
@@ -24,8 +24,12 @@ export function SplashScreen({
   facebookUrl = 'https://www.facebook.com/kechmech.tn/',
   tiktokUrl = 'https://www.tiktok.com/@kechmech.tn'
 }: SplashScreenProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleMenuClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    if (isLoading) return;
+    setIsLoading(true);
   };
 
   // Split tagline for staggered letter animation, grouping by words
@@ -136,15 +140,27 @@ export function SplashScreen({
           href="#"
           onClick={handleMenuClick}
           aria-label={`${ctaText} — ${restaurantName}`}
-          className="group relative w-full bg-deep-charcoal text-vibrant-yellow font-anton text-[22px] tracking-wider uppercase py-4 px-6 rounded-full flex items-center justify-between border-[3px] border-deep-charcoal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade hover:bg-vibrant-yellow hover:text-deep-charcoal hover:-translate-y-[2px] active:scale-[0.98] active:translate-y-0"
+          className={`group relative w-full bg-deep-charcoal text-vibrant-yellow font-anton text-[22px] tracking-wider uppercase py-4 px-6 rounded-full flex items-center justify-between border-[3px] border-deep-charcoal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade ${
+            isLoading ? 'opacity-90 pointer-events-none' : 
+            'hover:bg-vibrant-yellow hover:text-deep-charcoal hover:-translate-y-[2px] active:scale-[0.98] active:translate-y-0'
+          }`}
           style={{ animationDelay: '400ms' }}
         >
-          <span className="pl-2 transition-transform duration-300 group-hover:translate-x-1">{ctaText}</span>
-          <span className="bg-vibrant-yellow text-deep-charcoal rounded-full p-2 transition-all duration-300 group-hover:bg-deep-charcoal group-hover:text-vibrant-yellow group-hover:-rotate-45">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="square" strokeLinejoin="miter" aria-hidden="true">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
+          <span className="pl-2 transition-transform duration-300 group-hover:translate-x-1">
+            {isLoading ? 'CHARGEMENT...' : ctaText}
+          </span>
+          <span className={`bg-vibrant-yellow text-deep-charcoal rounded-full p-2 transition-all duration-300 ${isLoading ? '' : 'group-hover:bg-deep-charcoal group-hover:text-vibrant-yellow group-hover:-rotate-45'}`}>
+            {isLoading ? (
+              <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="square" strokeLinejoin="miter" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            )}
           </span>
         </a>
 
