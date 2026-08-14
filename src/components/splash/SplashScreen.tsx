@@ -1,9 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 interface SplashScreenProps {
   restaurantName?: string;
@@ -26,21 +24,8 @@ export function SplashScreen({
   facebookUrl = 'https://www.facebook.com/kechmech.tn/',
   tiktokUrl = 'https://www.tiktok.com/@kechmech.tn'
 }: SplashScreenProps) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
-  const router = useRouter();
-
   const handleMenuClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (isLoading) return;
-    
-    setIsLoading(true);
-    setIsExiting(true);
-    
-    // Wait for the exit animation to play out before routing
-    setTimeout(() => {
-      router.push(`/menu/${firstCategorySlug}`);
-    }, 450);
   };
 
   // Split tagline for staggered letter animation, grouping by words
@@ -62,7 +47,7 @@ export function SplashScreen({
       
       {/* Background Marquee */}
       <div 
-        className={`absolute inset-0 z-0 flex flex-col justify-around opacity-40 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExiting ? 'scale-110 opacity-0 blur-sm' : ''}`}
+        className="absolute inset-0 z-0 flex flex-col justify-around opacity-40 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
         aria-hidden="true"
       >
         {[...Array(5)].map((_, i) => (
@@ -89,7 +74,7 @@ export function SplashScreen({
 
         {/* Logo */}
         <div 
-          className={`mb-10 w-[240px] h-[240px] relative flex-shrink-0 animate-scale-fade transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExiting ? '-translate-y-16 scale-90 opacity-0' : ''}`} 
+          className="mb-10 w-[240px] h-[240px] relative flex-shrink-0 animate-scale-fade transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" 
           style={{ animationDelay: '100ms' }}
         >
           <div className="w-full h-full animate-pulse-subtle">
@@ -105,7 +90,7 @@ export function SplashScreen({
         </div>
 
         {/* Tagline & Brush Line Wrapper */}
-        <div className={`relative mb-10 w-full flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${isExiting ? 'translate-y-8 opacity-0 scale-95 blur-[2px]' : ''}`}>
+        <div className="relative mb-10 w-full flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]">
           {/* Tagline - Staggered Reveal */}
           <h2 className="relative z-10 font-handwritten text-[34px] sm:text-[42px] md:text-[50px] font-bold leading-[1.1] text-deep-charcoal text-center flex flex-wrap justify-center gap-x-3 md:gap-x-4 gap-y-1 md:gap-y-2">
             {taglineWords.map((word, wIdx) => (
@@ -147,36 +132,25 @@ export function SplashScreen({
         </div>
 
         {/* High-Craft Pill Button */}
-        <Link
-          {/* href={`/menu/${firstCategorySlug}`} */}
+        <a
+          href="#"
           onClick={handleMenuClick}
-          aria-label={`${ctaText} — parcourir le menu de ${restaurantName}`}
-          className={`group relative w-full bg-deep-charcoal text-vibrant-yellow font-anton text-[22px] tracking-wider uppercase py-4 px-6 rounded-full flex items-center justify-between border-[3px] border-deep-charcoal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade ${
-            isExiting ? 'translate-y-16 opacity-0 scale-[0.85]' : 
-            isLoading ? 'opacity-90 pointer-events-none' : 
-            'hover:bg-vibrant-yellow hover:text-deep-charcoal hover:-translate-y-[2px] active:scale-[0.98] active:translate-y-0'
-          }`}
+          aria-label={`${ctaText} — ${restaurantName}`}
+          className="group relative w-full bg-deep-charcoal text-vibrant-yellow font-anton text-[22px] tracking-wider uppercase py-4 px-6 rounded-full flex items-center justify-between border-[3px] border-deep-charcoal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade hover:bg-vibrant-yellow hover:text-deep-charcoal hover:-translate-y-[2px] active:scale-[0.98] active:translate-y-0"
           style={{ animationDelay: '400ms' }}
         >
-          <span className="pl-2 transition-transform duration-300 group-hover:translate-x-1">{isLoading ? 'CHARGEMENT...' : ctaText}</span>
-          <span className={`bg-vibrant-yellow text-deep-charcoal rounded-full p-2 transition-all duration-300 ${isLoading ? '' : 'group-hover:bg-deep-charcoal group-hover:text-vibrant-yellow group-hover:-rotate-45'}`}>
-            {isLoading ? (
-              <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="square" strokeLinejoin="miter" aria-hidden="true">
-                <path d="M5 12h14"></path>
-                <path d="m12 5 7 7-7 7"></path>
-              </svg>
-            )}
+          <span className="pl-2 transition-transform duration-300 group-hover:translate-x-1">{ctaText}</span>
+          <span className="bg-vibrant-yellow text-deep-charcoal rounded-full p-2 transition-all duration-300 group-hover:bg-deep-charcoal group-hover:text-vibrant-yellow group-hover:-rotate-45">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="square" strokeLinejoin="miter" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
           </span>
-        </Link>
+        </a>
 
         {/* Social Media Bar */}
         <footer
-          className={`w-full max-w-[340px] mt-12 flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade ${isExiting ? 'translate-y-24 opacity-0 scale-90' : ''}`}
+          className="w-full max-w-[340px] mt-12 flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] animate-slide-up-fade"
           style={{ animationDelay: '550ms' }}
         >
           <p className="font-libre-franklin text-sm font-bold uppercase tracking-widest text-deep-charcoal mb-2">

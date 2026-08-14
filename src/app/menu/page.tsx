@@ -9,7 +9,10 @@ export default async function MenuSplashPage() {
     getCategories()
   ]);
   
-  const firstCategorySlug = categories?.[0]?.slug || 'pizza';
+  const validCategory = categories?.find(
+    (c: { slug?: string }) => c.slug && c.slug.trim() !== '' && c.slug !== '#' && !c.slug.startsWith('#')
+  );
+  const firstCategorySlug = validCategory?.slug || 'pizza';
   
   return (
     <SplashScreen 
